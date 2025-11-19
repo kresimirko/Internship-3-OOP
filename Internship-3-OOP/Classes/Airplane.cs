@@ -7,10 +7,3 @@ public class Airplane(string title, string manufactureYear) : Entity
     public Flight[] Flights { get; private set; } = [];
     public FlightCategory[] Categories { get; private set; } = [];
 }
-
-public enum FlightCategory
-{
-    Standard,
-    Business,
-    Vip
-}

@@ -12,10 +12,3 @@ public class CrewMember(
 {
     public Role Role { get; private set; }
 }
-
-public enum Role
-{
-    Pilot,
-    Copilot,
-    FlightAttendant
-}

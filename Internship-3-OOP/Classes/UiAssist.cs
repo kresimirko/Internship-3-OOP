@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Internship_3_OOP.Classes;
 
-public class UiAssist
+public static class UiAssist
 {
     private const string Title = "APLIKACIJA ZA UPRAVLJANJE AERODROMOM";
     
@@ -97,5 +97,45 @@ public class UiAssist
 
             return inputted;
         }
+    }
+    
+    public static string TurnTableIntoString(List<List<string>> tableData)
+    {
+        var maxStringLengthForEachColumn = new int[tableData[0].Count];
+        foreach (var row in tableData)
+        {
+            for (var i = 0; i < row.Count; i++)
+            {
+                if (row[i].Length > maxStringLengthForEachColumn[i])
+                    maxStringLengthForEachColumn[i] = row[i].Length;
+            }
+        }
+
+        var table = "";
+        var tableSeparator = '+' + new string('-',
+            maxStringLengthForEachColumn.Sum() + (maxStringLengthForEachColumn.Length + 2) * 2) + '+';
+
+        table += $"\n{tableSeparator}\n";
+
+        for (var j = 0; j < tableData.Count; j++)
+        {
+            var row = tableData[j];
+            for (var i = 0; i < row.Count; i++)
+            {
+                table += $"| {row[i]} ";
+                table += new string(' ', maxStringLengthForEachColumn[i] - row[i].Length);
+                if (i == row.Count - 1) table += '|';
+            }
+            
+            if (j == 0 || j == tableData.Count - 1) table += $"\n{tableSeparator}";
+            if (j != tableData.Count - 1) table += '\n';
+        }
+
+        return table;
+    }
+
+    public static void PrintTable(List<List<string>> tableData)
+    {
+        Console.WriteLine(TurnTableIntoString(tableData));
     }
 }

@@ -11,14 +11,7 @@ public abstract class Person(
     public string FirstName { get; private set; } = firstName;
     public string LastName { get; private set; } = lastName;
     public DateTime DateOfBirth { get; private set; } = dateOfBirth;
-    private string Email { get; set; } = email;
-    private string Password { get; set; } = password;
+    public string Email { get; set; } = email;
+    public string Password { get; set; } = password;
     public Gender Gender { get; private set; } = gender;
-}
-
-public enum Gender
-{
-    Male,
-    Female,
-    Other
 }

@@ -1,27 +1,45 @@
 namespace Internship_3_OOP.Classes;
 
-public class PassengerCollection(List<Passenger>? passengers = null) : Entity
+public class PassengerCollection(List<Passenger>? passengers = null)
+    : Entity, ICollectionDataTableProvidable<PassengerCollection>
 {
     public List<Passenger> Passengers { get; private set; } = passengers ?? [];
 
-    public void AddPassenger(Passenger passenger)
-    {
-        Passengers.Add(passenger);
-    }
-
-    public void AddPassenger(string firstName, string lastName, DateTime dateOfBirth, string email,
-        string password, Gender gender, Role role)
+    public void Add(string firstName, string lastName, DateTime dateOfBirth, string email,
+        string password, Gender gender)
     {
         Passengers.Add(new Passenger(firstName, lastName, dateOfBirth, email, password, gender));
     }
-
-    public void RemovePassanger(Passenger passenger)
+    
+    public static string TurnDataTableIntoString(PassengerCollection passengerCollection)
     {
-        Passengers.Remove(passenger);
+        var table = new List<List<string>> {};
+        table.Add(["Ime", "Prezime", "Datum rođenja", "Email", "Spol"]);
+        
+        table.AddRange(passengerCollection.Passengers.Select(passenger => (List<string>)
+        [
+            passenger.FirstName,
+            passenger.LastName,
+            passenger.DateOfBirth.ToString("yyyy-MM-dd"),
+            passenger.Email,
+            passenger.Gender.ToString()
+        ]));
+    
+        return UiAssist.TurnTableIntoString(table);
     }
-
-    public void RemovePassanger(Guid id)
+    
+    public static void PrintDataTable(PassengerCollection passengerCollection)
     {
-        Passengers.RemoveAll(x => x.Id == id);
+        TurnDataTableIntoString(passengerCollection);
+    }
+    
+    public string TurnDataTableOfSelfIntoString()
+    {
+        return TurnDataTableIntoString(this);
+    }
+    
+    public void PrintDataTableOfSelf()
+    {
+        Console.WriteLine(TurnDataTableOfSelfIntoString());
     }
 }
