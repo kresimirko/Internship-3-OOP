@@ -1,7 +1,6 @@
 namespace Internship_3_OOP.Classes;
 
-public class PassengerCollection(List<Passenger>? passengers = null)
-    : Entity, ICollectionDataTableProvidable<PassengerCollection>
+public class PassengerCollection(List<Passenger>? passengers = null) : Collection<Passenger>
 {
     public List<Passenger> Passengers { get; private set; } = passengers ?? [];
 
@@ -11,12 +10,11 @@ public class PassengerCollection(List<Passenger>? passengers = null)
         Passengers.Add(new Passenger(firstName, lastName, dateOfBirth, email, password, gender));
     }
     
-    public static string TurnDataTableIntoString(PassengerCollection passengerCollection)
+    public override string TurnDataTableIntoString()
     {
         var table = new List<List<string>> {};
         table.Add(["Ime", "Prezime", "Datum rođenja", "Email", "Spol"]);
-        
-        table.AddRange(passengerCollection.Passengers.Select(passenger => (List<string>)
+        table.AddRange(Passengers.Select(passenger => (List<string>)
         [
             passenger.FirstName,
             passenger.LastName,
@@ -28,18 +26,8 @@ public class PassengerCollection(List<Passenger>? passengers = null)
         return UiAssist.TurnTableIntoString(table);
     }
     
-    public static void PrintDataTable(PassengerCollection passengerCollection)
+    public override void PrintDataTable()
     {
-        TurnDataTableIntoString(passengerCollection);
-    }
-    
-    public string TurnDataTableOfSelfIntoString()
-    {
-        return TurnDataTableIntoString(this);
-    }
-    
-    public void PrintDataTableOfSelf()
-    {
-        Console.WriteLine(TurnDataTableOfSelfIntoString());
+        Console.WriteLine(TurnDataTableIntoString());
     }
 }

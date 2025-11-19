@@ -18,12 +18,22 @@ public abstract class Collection<T>(List<T>? members = null) : Entity where T : 
     {
         Members.RemoveAll(x => x.Id == id);
     }
-}
 
-public interface ICollectionDataTableProvidable<T> where T : ICollectionDataTableProvidable<T>
-{
-    public static abstract string TurnDataTableIntoString(T instance);
-    public static abstract void PrintDataTable(T instance);
-    public string TurnDataTableOfSelfIntoString();
-    public void PrintDataTableOfSelf();
+    public virtual string TurnDataTableIntoString()
+    {
+        var table = new List<List<string>> {};
+        table.Add(["ID", "Vrijeme stvaranja"]);
+        table.AddRange(Members.Select(member => (List<string>)
+        [
+            member.Id.ToString(),
+            member.DateOfCreation.ToString("yyyy-MM-dd")
+        ]));
+    
+        return UiAssist.TurnTableIntoString(table);
+    }
+
+    public virtual void PrintDataTable()
+    {
+        Console.WriteLine(TurnDataTableIntoString());
+    }
 }
