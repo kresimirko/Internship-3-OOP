@@ -2,7 +2,8 @@ using Internship_3_OOP.Static;
 
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public class ObjectCollectionAirplanes(List<EntityAirplane>? airplaneList = null) : ObjectCollection<EntityAirplane>
+public class ObjectCollectionAirplanes(List<EntityAirplane>? members = null)
+    : ObjectCollection<EntityAirplane>(members)
 {
     public void Add(string title, int manufactureYear,
         Dictionary<FlightCategory, int> flightCategoriesAndSeats, List<Guid>? flights = null)
@@ -16,7 +17,7 @@ public class ObjectCollectionAirplanes(List<EntityAirplane>? airplaneList = null
         table.Add(["ID", "Naziv", "Godina proizvodnje", "Broj letova", "Kategorije"]);
         table.AddRange(Members.Select(airplane => (List<string>)
         [
-            airplane.Id.ToString(),
+            airplane.Guid.ToString(),
             airplane.Title,
             airplane.ManufactureYear.ToString(),
             airplane.Flights.Count.ToString(),

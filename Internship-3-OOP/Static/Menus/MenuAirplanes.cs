@@ -6,8 +6,7 @@ public class MenuAirplanes : IMenu<ObjectCollectionAirplanes>
 {
     private static void ShowAllAirplanes(ObjectCollectionAirplanes airplanes)
     {
-        airplanes.PrintDataTable();
-        UiAssist.Halt();
+        airplanes.PrintDataTable(true);
     }
 
     private static void AddNewAirplane(ObjectCollectionAirplanes airplanes)

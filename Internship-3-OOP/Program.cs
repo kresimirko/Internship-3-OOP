@@ -1,4 +1,5 @@
-﻿using Internship_3_OOP.Entities.ObjectCollections;
+﻿using Internship_3_OOP.Entities;
+using Internship_3_OOP.Entities.ObjectCollections;
 using Internship_3_OOP.Static;
 using Internship_3_OOP.Static.Menus;
 
@@ -8,22 +9,9 @@ class Program
 {
     private static void Main()
     {
-        var running = true;
-
-        var passengers = new ObjectCollectionPassengers();
-        var flights = new ObjectCollectionFlights();
-        var airplanes = new ObjectCollectionAirplanes();
-        var aircrews = new ObjectCollectionAircrewGroup();
+        var globalStorage = new EntityGlobalStorage(true);
+        globalStorage.Users.DEBUG_SetFirstUserInUserListToSignedInIfThereAreAny();
         
-        while (running)
-        {
-            UiAssist.PromptMappedMenu([
-                KeyValuePair.Create("Putnici", () => { MenuPassengers.Show(passengers); }),
-                KeyValuePair.Create("Letovi", () => { MenuFlights.Show(flights); }),
-                KeyValuePair.Create("Avioni", () => { MenuAirplanes.Show(airplanes); }),
-                KeyValuePair.Create("Posada", () => { MenuAircrews.Show(aircrews); }),
-                KeyValuePair.Create("Izlaz iz programa", () => { running = false; })
-            ]);
-        }
+        MenuMain.Show(globalStorage);
     }
 }

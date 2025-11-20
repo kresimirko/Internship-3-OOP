@@ -2,7 +2,7 @@ using Internship_3_OOP.Static;
 
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public class ObjectCollectionFlights(List<EntityFlight>? flightList = null) : ObjectCollection<EntityFlight>
+public class ObjectCollectionFlights(List<EntityFlight>? members = null) : ObjectCollection<EntityFlight>(members)
 {
     public void Add(string title, DateTime departure, DateTime arrival, int distance)
     {
@@ -15,7 +15,7 @@ public class ObjectCollectionFlights(List<EntityFlight>? flightList = null) : Ob
         table.Add(["ID", "Naziv", "Datum polaska", "Datum dolaska", "Udaljenost", "Vrijeme putovanja"]);
         table.AddRange(Members.Select(flight => (List<string>)
         [
-            flight.Id.ToString(),
+            flight.Guid.ToString(),
             flight.Title,
             flight.Departure.ToString("yyyy-MM-dd"),
             flight.Arrival.ToString("yyyy-MM-dd"),

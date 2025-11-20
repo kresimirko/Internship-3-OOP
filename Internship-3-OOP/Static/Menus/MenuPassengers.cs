@@ -2,18 +2,8 @@ using Internship_3_OOP.Entities.ObjectCollections;
 
 namespace Internship_3_OOP.Static.Menus;
 
-public class MenuPassengers : IMenu<ObjectCollectionPassengers>
+public class MenuPassengers : IMenu<ObjectCollectionUsers>
 {
-    private static void SignUpMenu()
-    {
-        UiAssist.Halt();
-    }
-    
-    private static void SignInMenu()
-    {
-        UiAssist.Halt();
-    }
-    
     private static void ShowAllFlights()
     {
         UiAssist.Halt();
@@ -38,7 +28,7 @@ public class MenuPassengers : IMenu<ObjectCollectionPassengers>
         UiAssist.Halt();
     }
     
-    public static void Show(ObjectCollectionPassengers passengers)
+    public static void Show(ObjectCollectionUsers users)
     {
         var running = true;
         
@@ -47,24 +37,13 @@ public class MenuPassengers : IMenu<ObjectCollectionPassengers>
         
         while (running)
         {
-            if (passengers.Members.Count == 0)
-            {
-                UiAssist.PromptMappedMenu([
-                    KeyValuePair.Create("Registracija", SignUpMenu),
-                    KeyValuePair.Create("Prijava", SignInMenu),
-                    backToMainMenuKvp
-                ]);
-            }
-            else
-            {
-                UiAssist.PromptMappedMenu([
-                    KeyValuePair.Create("Prikaz svih letova", ShowAllFlights),
-                    KeyValuePair.Create("Odabir leta", PickFlight),
-                    KeyValuePair.Create("Pretraživanje letova", SearchFlights),
-                    KeyValuePair.Create("Otkazivanje leta", CancelFlight),
-                    backToMainMenuKvp
-                ]);
-            }
+            UiAssist.PromptMappedMenu([
+                KeyValuePair.Create("Prikaz svih letova", ShowAllFlights),
+                KeyValuePair.Create("Odabir leta", PickFlight),
+                KeyValuePair.Create("Pretraživanje letova", SearchFlights),
+                KeyValuePair.Create("Otkazivanje leta", CancelFlight),
+                backToMainMenuKvp
+            ]);
         }
     }
 }

@@ -8,8 +8,8 @@ public class EntityAirplane(
 {
     public string Title { get; private set; } = title;
     public int ManufactureYear { get; private set; } = manufactureYear;
-    public Dictionary<FlightCategory, int> FlightCategoriesAndSeats { get; private set; } = flightCategoriesAndSeats;
-    public List<Guid> Flights { get; private set; } = flights ?? [];
+    public Dictionary<FlightCategory, int> FlightCategoriesAndSeats { get; } = flightCategoriesAndSeats;
+    public List<Guid> Flights { get; } = flights ?? [];
 }
 
 public enum FlightCategory

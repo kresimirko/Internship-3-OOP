@@ -6,8 +6,7 @@ public class MenuFlights : IMenu<ObjectCollectionFlights>
 {
     private static void ShowAllFlights(ObjectCollectionFlights flights)
     {
-        flights.PrintDataTable();
-        UiAssist.Halt();
+        flights.PrintDataTable(true);
     }
 
     private static void AddFlight(ObjectCollectionFlights flights)

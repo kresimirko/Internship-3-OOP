@@ -2,12 +2,12 @@ using Internship_3_OOP.Static;
 
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public class ObjectCollectionAircrew(string name, List<EntityCrewMember>? crewMemberList = null)
-    : ObjectCollection<EntityCrewMember>
+public class ObjectCollectionAircrew(string name, List<EntityCrewMember>? members = null)
+    : ObjectCollection<EntityCrewMember>(members)
 {
     public string Name { get; private set; } = name;
     
-    public void Add(string firstName, string lastName, DateTime dateOfBirth, string email,
+    public void Add(string firstName, string lastName, DateOnly dateOfBirth, string email,
         string password, Gender gender, Role role)
     {
         Members.Add(new EntityCrewMember(firstName, lastName, dateOfBirth, email, password, gender, role));
