@@ -1,6 +1,4 @@
-using System.Runtime.InteropServices;
-
-namespace Internship_3_OOP.Classes;
+namespace Internship_3_OOP.Static;
 
 public static class UiAssist
 {
@@ -18,26 +16,37 @@ public static class UiAssist
         Console.Write("{0}\n\n{1}\n\n", Title, message);
         Halt();
     }
-    
-    public static int PromptMenu(Tuple<string, Action>[] options, string? subtitle = null)
+
+    private static void PrintMenuHeader(string? subtitle = null)
     {
         Console.Clear();
 
         Console.WriteLine("{0}\n", Title);
         if (subtitle is not null)
             Console.WriteLine("{0}\n", subtitle);
+    }
+    
+    public static int PromptMenu(string[] options, string? subtitle = null)
+    {
+        PrintMenuHeader(subtitle);
 
         for (var i = 0; i < options.Length; i++)
-        {
-            Console.WriteLine(
-                $"{(i != options.Length - 1 ? i + 1 : 0)} - {options[i].Item1}"
-            );
-        }
+            Console.WriteLine("{0} - {1}", i != options.Length - 1 ? i + 1 : 0, options[i]);
 
         Console.WriteLine();
-        var choice = OneLinePromptIntInRange("Odabir: ", -1, options.Length);
-        options[(choice == 0 ? options.Length : choice) - 1].Item2();
-        return choice;
+        return OneLinePromptIntInRange(-1, options.Length);
+    }
+
+    public static void PromptMappedMenu(List<KeyValuePair<string, Action>> options, string? subtitle = null)
+    { 
+        PrintMenuHeader(subtitle);
+
+        for (var i = 0; i < options.Count; i++)
+            Console.WriteLine("{0} - {1}", i != options.Count - 1 ? i + 1 : 0, options[i].Key);
+
+        Console.WriteLine();
+        var choice = OneLinePromptIntInRange(-1, options.Count);
+        options[(choice == 0 ? options.Count : choice) - 1].Value();
     }
 
     private static void BringCursorBackToPrompt(int promptLength, int userInputLength)
@@ -57,7 +66,7 @@ public static class UiAssist
         Console.Write(new string('\b', invalidInputWarning.Length));
     }
 
-    public static int OneLinePromptIntInRange(string prompt, int lower, int higher)
+    public static int OneLinePromptIntInRange(int lower, int higher, string? prompt = "Unesite odabir: ")
     {
         Console.Write(prompt);
         var firstLoop = true;
@@ -70,8 +79,7 @@ public static class UiAssist
                 firstLoop = false;
 
             var inputted = Console.ReadLine();
-            if (inputted is null)
-                continue;
+            if (string.IsNullOrWhiteSpace(inputted)) continue;
             inputted = inputted.Trim();
             lastEnteredLength = inputted.Length;
 
@@ -92,7 +100,7 @@ public static class UiAssist
                 isFirstLoop = false;
 
             var inputted = Console.ReadLine();
-            if (inputted is null) continue;
+            if (string.IsNullOrWhiteSpace(inputted)) continue;
             inputted = inputted.Trim();
 
             return inputted;
@@ -113,7 +121,7 @@ public static class UiAssist
 
         var table = "";
         var tableSeparator = '+' + new string('-',
-            maxStringLengthForEachColumn.Sum() + (maxStringLengthForEachColumn.Length + 2) * 2) + '+';
+            maxStringLengthForEachColumn.Sum() + 3 * maxStringLengthForEachColumn.Length - 1) + '+';
 
         table += $"\n{tableSeparator}\n";
 

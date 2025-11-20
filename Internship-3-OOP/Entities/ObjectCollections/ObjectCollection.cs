@@ -1,9 +1,22 @@
-namespace Internship_3_OOP.Classes;
+using System.Collections;
+using Internship_3_OOP.Static;
 
-public abstract class Collection<T>(List<T>? members = null) : Entity where T : Entity
+namespace Internship_3_OOP.Entities.ObjectCollections;
+
+public abstract class ObjectCollection<T>(List<T>? members = null) : Entity, IEnumerable<T> where T : Entity
 {
     public List<T> Members { get; private set; } = members ?? [];
 
+    public IEnumerator<T> GetEnumerator()
+    {
+        return Members.GetEnumerator();
+    }
+    
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+    
     public void Add(T member)
     {
         Members.Add(member);

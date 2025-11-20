@@ -1,6 +1,6 @@
-namespace Internship_3_OOP.Classes;
+namespace Internship_3_OOP.Entities;
 
-public abstract class Person(
+public abstract class EntityPerson(
     string firstName,
     string lastName,
     DateTime dateOfBirth,
@@ -14,4 +14,11 @@ public abstract class Person(
     public string Email { get; set; } = email;
     public string Password { get; set; } = password;
     public Gender Gender { get; private set; } = gender;
+}
+
+public enum Gender
+{
+    Male,
+    Female,
+    Other
 }

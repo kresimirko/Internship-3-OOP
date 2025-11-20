@@ -1,20 +1,25 @@
-namespace Internship_3_OOP.Classes;
+using Internship_3_OOP.Static;
 
-public class PassengerCollection(List<Passenger>? passengers = null) : Collection<Passenger>
+namespace Internship_3_OOP.Entities.ObjectCollections;
+
+public class ObjectCollectionPassengers(List<EntityPassenger>? passengerList = null) : ObjectCollection<EntityPassenger>
 {
-    public List<Passenger> Passengers { get; private set; } = passengers ?? [];
-
     public void Add(string firstName, string lastName, DateTime dateOfBirth, string email,
         string password, Gender gender)
     {
-        Passengers.Add(new Passenger(firstName, lastName, dateOfBirth, email, password, gender));
+        Members.Add(new EntityPassenger(firstName, lastName, dateOfBirth, email, password, gender));
+    }
+
+    public void SignIn(string email, string password)
+    {
+        UiAssist.Halt();
     }
     
     public override string TurnDataTableIntoString()
     {
         var table = new List<List<string>> {};
         table.Add(["Ime", "Prezime", "Datum rođenja", "Email", "Spol"]);
-        table.AddRange(Passengers.Select(passenger => (List<string>)
+        table.AddRange(Members.Select(passenger => (List<string>)
         [
             passenger.FirstName,
             passenger.LastName,
@@ -24,10 +29,5 @@ public class PassengerCollection(List<Passenger>? passengers = null) : Collectio
         ]));
     
         return UiAssist.TurnTableIntoString(table);
-    }
-    
-    public override void PrintDataTable()
-    {
-        Console.WriteLine(TurnDataTableIntoString());
     }
 }

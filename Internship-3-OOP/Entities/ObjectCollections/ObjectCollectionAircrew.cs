@@ -1,20 +1,23 @@
-namespace Internship_3_OOP.Classes;
+using Internship_3_OOP.Static;
 
-public class Aircrew(List<CrewMember>? crewMembers = null) : Collection<CrewMember>
+namespace Internship_3_OOP.Entities.ObjectCollections;
+
+public class ObjectCollectionAircrew(string name, List<EntityCrewMember>? crewMemberList = null)
+    : ObjectCollection<EntityCrewMember>
 {
-    public List<CrewMember> CrewMembers { get; private set; } = crewMembers ?? [];
-
+    public string Name { get; private set; } = name;
+    
     public void Add(string firstName, string lastName, DateTime dateOfBirth, string email,
         string password, Gender gender, Role role)
     {
-        CrewMembers.Add(new CrewMember(firstName, lastName, dateOfBirth, email, password, gender, role));
+        Members.Add(new EntityCrewMember(firstName, lastName, dateOfBirth, email, password, gender, role));
     }
     
     public override string TurnDataTableIntoString()
     {
         var table = new List<List<string>> {};
         table.Add(["Ime", "Prezime", "Pozicija", "Spol", "Datum rođenja"]);
-        table.AddRange(CrewMembers.Select(crewMember => (List<string>)
+        table.AddRange(Members.Select(crewMember => (List<string>)
         [
             crewMember.FirstName,
             crewMember.LastName,
@@ -24,10 +27,5 @@ public class Aircrew(List<CrewMember>? crewMembers = null) : Collection<CrewMemb
         ]));
     
         return UiAssist.TurnTableIntoString(table);
-    }
-    
-    public override void PrintDataTable()
-    {
-        Console.WriteLine(TurnDataTableIntoString());
     }
 }
