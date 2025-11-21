@@ -1,5 +1,3 @@
-using Internship_3_OOP.Static;
-
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
 public class ObjectCollectionAircrew(string name, List<EntityCrewMember>? members = null)

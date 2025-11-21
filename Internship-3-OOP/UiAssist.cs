@@ -1,4 +1,4 @@
-namespace Internship_3_OOP.Static;
+namespace Internship_3_OOP;
 
 public static class UiAssist
 {

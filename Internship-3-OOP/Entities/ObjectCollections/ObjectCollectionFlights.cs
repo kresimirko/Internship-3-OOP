@@ -1,5 +1,3 @@
-using Internship_3_OOP.Static;
-
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
 public class ObjectCollectionFlights(List<EntityFlight>? members = null) : ObjectCollection<EntityFlight>(members)

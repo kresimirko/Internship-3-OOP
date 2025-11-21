@@ -1,4 +1,4 @@
-﻿using Internship_3_OOP.Static.Menus;
+﻿using Internship_3_OOP.Menus;
 
 namespace Internship_3_OOP;
 

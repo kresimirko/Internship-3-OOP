@@ -1,4 +1,4 @@
-namespace Internship_3_OOP.Static.Menus;
+namespace Internship_3_OOP.Menus;
 
 public static class MenuAircrews
 {

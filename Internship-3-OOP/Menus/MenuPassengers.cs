@@ -1,17 +1,17 @@
-namespace Internship_3_OOP.Static.Menus;
+namespace Internship_3_OOP.Menus;
 
-public class MenuFlights
+public static class MenuPassengers
 {
     private static void ShowAllFlights()
     {
-        Storage.Flights.PrintDataTable(true);
+        UiAssist.Halt();
     }
-
-    private static void AddFlight()
+    
+    private static void PickFlight()
     {
         UiAssist.Halt();
     }
-
+    
     private static void SearchFlights()
     {
         UiAssist.PromptMenu([
@@ -20,13 +20,8 @@ public class MenuFlights
         ]);
         UiAssist.Halt();
     }
-
-    private static void EditFlight()
-    {
-        UiAssist.Halt();
-    }
-
-    private static void DeleteFlight()
+    
+    private static void CancelFlight()
     {
         UiAssist.Halt();
     }
@@ -42,12 +37,11 @@ public class MenuFlights
         {
             UiAssist.PromptMappedMenu([
                 KeyValuePair.Create("Prikaz svih letova", ShowAllFlights),
-                KeyValuePair.Create("Dodavanje leta", AddFlight),
+                KeyValuePair.Create("Odabir leta", PickFlight),
                 KeyValuePair.Create("Pretraživanje letova", SearchFlights),
-                KeyValuePair.Create("Uređivanje leta", EditFlight),
-                KeyValuePair.Create("Brisanje leta", DeleteFlight),
+                KeyValuePair.Create("Otkazivanje leta", CancelFlight),
                 backToMainMenuKvp
             ]);
         }
-    }    
+    }
 }

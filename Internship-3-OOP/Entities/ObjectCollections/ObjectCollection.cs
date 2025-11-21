@@ -1,5 +1,4 @@
 using System.Collections;
-using Internship_3_OOP.Static;
 
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
