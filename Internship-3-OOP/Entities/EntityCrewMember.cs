@@ -7,13 +7,20 @@ public class EntityCrewMember(
     string email,
     string password,
     Gender gender,
-    Role role)
+    AircrewRole role)
     : EntityPerson(firstName, lastName, dateOfBirth, gender)
 {
-    public Role Role { get; private set; }
+    public AircrewRole Role { get; private set; }
+    
+    public static readonly Dictionary<AircrewRole, string> AircrewRolesCroatianMap = new Dictionary<AircrewRole, string>
+    {
+        { AircrewRole.Pilot, "pilot" },
+        { AircrewRole.Copilot, "kopilot" },
+        { AircrewRole.FlightAttendant, "stujard(esa)" },
+    };
 }
 
-public enum Role
+public enum AircrewRole
 {
     Pilot,
     Copilot,

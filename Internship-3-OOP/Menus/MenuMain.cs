@@ -8,8 +8,8 @@ public static class MenuMain
     {
         var running = true;
         
-        var backToMainMenuKvp = KeyValuePair.Create(
-            "Povratak na prethodni izbornik", () => { running = false; });
+        var quitKvp = KeyValuePair.Create(
+            "Izlaz iz programa", () => { running = false; });
         
         while (running)
         {
@@ -19,12 +19,12 @@ public static class MenuMain
             {
                 var menuSubtitle = $"Prijavljeni ste kao \"{currentUser.GetFullName()}\"";
                 
-                if (currentUser.Level != Level.Admin)
+                if (currentUser.Level != UserLevel.Admin)
                 {
                     UiAssist.PromptMappedMenu([
                         KeyValuePair.Create("Opcije za putnike", MenuPassengers.Show),
-                        KeyValuePair.Create("Odjava", UiAssist.Halt),
-                        KeyValuePair.Create("Izlaz iz programa", () => { running = false; })
+                        KeyValuePair.Create("Odjava", MenuUsers.SignOut),
+                        quitKvp
                     ], menuSubtitle);
                 }
                 else
@@ -34,19 +34,13 @@ public static class MenuMain
                         KeyValuePair.Create("Letovi", MenuFlights.Show),
                         KeyValuePair.Create("Avioni", MenuAirplanes.Show),
                         KeyValuePair.Create("Posada", MenuAircrews.Show),
-                        KeyValuePair.Create("Odjava", UiAssist.Halt),
-                        KeyValuePair.Create("Izlaz iz programa", () => { running = false; })
+                        KeyValuePair.Create("Odjava", MenuUsers.SignOut),
+                        quitKvp
                     ], menuSubtitle);
                 }
             }
             else
-            {
-                UiAssist.PromptMappedMenu([
-                    KeyValuePair.Create("Prijava", UiAssist.Halt),
-                    KeyValuePair.Create("Registracija", UiAssist.Halt),
-                    KeyValuePair.Create("Izlaz iz programa", () => { running = false; })
-                ], "Niste prijavljeni. Prijavite se kako biste pristupili značajkama aplikacije.");
-            }
+                running = MenuUsers.Startup();
         }
     }    
 }

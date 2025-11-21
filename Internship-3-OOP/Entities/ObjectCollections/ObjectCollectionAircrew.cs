@@ -6,7 +6,7 @@ public class ObjectCollectionAircrew(string name, List<EntityCrewMember>? member
     public string Name { get; private set; } = name;
     
     public void Add(string firstName, string lastName, DateOnly dateOfBirth, string email,
-        string password, Gender gender, Role role)
+        string password, Gender gender, AircrewRole role)
     {
         Members.Add(new EntityCrewMember(firstName, lastName, dateOfBirth, email, password, gender, role));
     }

@@ -1,3 +1,7 @@
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
+using Internship_3_OOP.Entities;
+
 namespace Internship_3_OOP;
 
 public static class UiAssist
@@ -17,7 +21,7 @@ public static class UiAssist
         Halt();
     }
 
-    private static void PrintMenuHeader(string? subtitle = null)
+    public static void ClearAndPrintAppHeader(string? subtitle = null)
     {
         Console.Clear();
 
@@ -28,7 +32,7 @@ public static class UiAssist
     
     public static int PromptMenu(string[] options, string? subtitle = null)
     {
-        PrintMenuHeader(subtitle);
+        ClearAndPrintAppHeader(subtitle);
 
         for (var i = 0; i < options.Length; i++)
             Console.WriteLine("{0} - {1}", i != options.Length - 1 ? i + 1 : 0, options[i]);
@@ -39,7 +43,7 @@ public static class UiAssist
 
     public static void PromptMappedMenu(List<KeyValuePair<string, Action>> options, string? subtitle = null)
     { 
-        PrintMenuHeader(subtitle);
+        ClearAndPrintAppHeader(subtitle);
 
         for (var i = 0; i < options.Count; i++)
             Console.WriteLine("{0} - {1}", i != options.Count - 1 ? i + 1 : 0, options[i].Key);
@@ -47,6 +51,34 @@ public static class UiAssist
         Console.WriteLine();
         var choice = OneLinePromptIntInRange(-1, options.Count);
         options[(choice == 0 ? options.Count : choice) - 1].Value();
+    }
+
+    public static void PromptMappedYesNoChoiceAndReport(Action onYes, string onYesCaption, Action onNo,
+        string onNoCaption, string? subtitle = null)
+    {
+        ClearAndPrintAppHeader(subtitle);
+        
+        Console.WriteLine("y - {0}\nn - {1}\n", onYesCaption, onNoCaption);
+
+        var choice = OneLinePrompt<string>("Upišite y ili n: ");
+        choice = choice.ToLower();
+
+        switch (choice)
+        {
+            case "y":
+                onYes();
+                Console.WriteLine("\nRadnja obavljena.\n");
+                break;
+            case "n":
+                onNo();
+                Console.WriteLine("\nRadnja otkazana.\n");
+                break;
+            default:
+                Console.WriteLine("\nVaš odabir je interpretiran kao ne.");
+                goto case "n";
+        }
+        
+        Halt();
     }
 
     private static void BringCursorBackToPrompt(int promptLength, int userInputLength)
@@ -66,7 +98,7 @@ public static class UiAssist
         Console.Write(new string('\b', invalidInputWarning.Length));
     }
 
-    public static int OneLinePromptIntInRange(int lower, int higher, string? prompt = "Unesite odabir: ")
+    public static int OneLinePromptIntInRange(int lower, int higher, string prompt = "Unesite odabir: ")
     {
         Console.Write(prompt);
         var firstLoop = true;
@@ -88,22 +120,42 @@ public static class UiAssist
         }
     }
     
-    public static string OneLinePromptString(string prompt)
+    public static T OneLinePrompt<T>(string prompt)
     {
         Console.Write(prompt);
         var isFirstLoop = true;
+        var lastEnteredLength = 0;
         while (true)
         {
             if (!isFirstLoop)
-                BringCursorBackToPrompt(prompt.Length, 0);
+                BringCursorBackToPrompt(prompt.Length, lastEnteredLength);
             else
                 isFirstLoop = false;
 
             var inputted = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(inputted)) continue;
             inputted = inputted.Trim();
-
-            return inputted;
+            lastEnteredLength = inputted.Length;
+            
+            if (typeof(T) == typeof(DateTime))
+            {
+                if (DateTime.TryParse(inputted, out var parsedDateTime))
+                    return (T)(object)parsedDateTime;
+            }
+            else if (typeof(T) == typeof(DateOnly))
+            {
+                if (DateOnly.TryParse(inputted, out var parsedDateOnly))
+                    return (T)(object)parsedDateOnly;
+            }
+            else if (typeof(T) == typeof(MailAddress))
+            {
+                if (MailAddress.TryCreate(inputted, out var parsedMailAddress))
+                    return (T)(object)parsedMailAddress;
+            }
+            else if (typeof(T) == typeof(string))
+                return (T)(object)inputted;
+            else
+                throw new NotSupportedException($"Unsupported type \"{typeof(T)}\"");
         }
     }
     

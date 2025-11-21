@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using Internship_3_OOP.Entities;
 using Internship_3_OOP.Entities.ObjectCollections;
 
@@ -16,10 +17,10 @@ public static class Storage
             "admin",
             "korisnik",
             new DateOnly(2000, 01, 01),
-            "admin@abc.xyz",
+            new MailAddress("admin@abc.xyz"),
             "abc123!?*",
             Gender.PreferNotToSay,
-            Level.Admin
+            UserLevel.Admin
         );
         Users.Add(adminUser);
     }

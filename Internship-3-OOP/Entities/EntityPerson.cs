@@ -10,6 +10,14 @@ public abstract class EntityPerson(
     public string LastName { get; private set; } = lastName;
     public DateOnly DateOfBirth { get; private set; } = dateOfBirth;
     public Gender Gender { get; private set; } = gender;
+
+    public static readonly Dictionary<Gender, string> GenderCroatianMap = new Dictionary<Gender, string>
+    {
+        { Gender.Male, "muško" },
+        { Gender.Female, "žensko" },
+        { Gender.Other, "drugo" },
+        { Gender.PreferNotToSay, "ne želi se izjasniti" },
+    };
 }
 
 public enum Gender
