@@ -1,8 +1,9 @@
+using Internship_3_OOP.Entities;
 using Internship_3_OOP.Entities.ObjectCollections;
 
 namespace Internship_3_OOP.Static.Menus;
 
-public class MenuPassengers : IMenu<ObjectCollectionUsers>
+public static class MenuPassengers
 {
     private static void ShowAllFlights()
     {
@@ -28,7 +29,7 @@ public class MenuPassengers : IMenu<ObjectCollectionUsers>
         UiAssist.Halt();
     }
     
-    public static void Show(ObjectCollectionUsers users)
+    public static void Show()
     {
         var running = true;
         

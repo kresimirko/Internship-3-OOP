@@ -1,20 +1,21 @@
+using Internship_3_OOP.Entities;
 using Internship_3_OOP.Entities.ObjectCollections;
 
 namespace Internship_3_OOP.Static.Menus;
 
-public class MenuAirplanes : IMenu<ObjectCollectionAirplanes>
+public static class MenuAirplanes
 {
-    private static void ShowAllAirplanes(ObjectCollectionAirplanes airplanes)
+    private static void ShowAllAirplanes()
     {
-        airplanes.PrintDataTable(true);
+        Storage.Airplanes.PrintDataTable(true);
     }
 
-    private static void AddNewAirplane(ObjectCollectionAirplanes airplanes)
+    private static void AddNewAirplane()
     {
         UiAssist.Halt();
     }
 
-    private static void SearchAirplanes(ObjectCollectionAirplanes airplanes)
+    private static void SearchAirplanes()
     {
         UiAssist.PromptMenu([
             "Po ID-u",
@@ -23,7 +24,7 @@ public class MenuAirplanes : IMenu<ObjectCollectionAirplanes>
         UiAssist.Halt();
     }
 
-    private static void DeleteAirplane(ObjectCollectionAirplanes airplanes)
+    private static void DeleteAirplane()
     {
         UiAssist.PromptMenu([
             "Po ID-u",
@@ -32,7 +33,7 @@ public class MenuAirplanes : IMenu<ObjectCollectionAirplanes>
         UiAssist.Halt();
     }
     
-    public static void Show(ObjectCollectionAirplanes airplanes)
+    public static void Show()
     {
         var running = true;
         
@@ -42,10 +43,10 @@ public class MenuAirplanes : IMenu<ObjectCollectionAirplanes>
         while (running)
         {
             UiAssist.PromptMappedMenu([
-                KeyValuePair.Create("Prikaz svih aviona", () => { ShowAllAirplanes(airplanes); }),
-                KeyValuePair.Create("Dodavanje novog aviona", () => { AddNewAirplane(airplanes); }),
-                KeyValuePair.Create("Pretraživanje aviona", () => { SearchAirplanes(airplanes); }),
-                KeyValuePair.Create("Brisanje aviona", () => { DeleteAirplane(airplanes); }),
+                KeyValuePair.Create("Prikaz svih aviona", ShowAllAirplanes),
+                KeyValuePair.Create("Dodavanje novog aviona", AddNewAirplane),
+                KeyValuePair.Create("Pretraživanje aviona", SearchAirplanes),
+                KeyValuePair.Create("Brisanje aviona", DeleteAirplane),
                 backToMainMenuKvp
             ]);
         }

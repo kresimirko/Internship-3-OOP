@@ -1,29 +1,30 @@
+using Internship_3_OOP.Entities;
 using Internship_3_OOP.Entities.ObjectCollections;
 
 namespace Internship_3_OOP.Static.Menus;
 
-public class MenuAircrews : IMenu<ObjectCollectionAircrewGroup>
+public static class MenuAircrews
 {
-    public static void ShowAllAircrews(ObjectCollectionAircrewGroup aircrews)
+    private static void ShowAllAircrews()
     {
-        aircrews.PrintDataTable();
-        foreach (var aircrew in aircrews)
+        Storage.AircrewGroup.PrintDataTable();
+        foreach (var aircrew in Storage.AircrewGroup)
             aircrew.PrintDataTable();
         
         UiAssist.Halt();
     }
 
-    public static void CreateNewAircrew(ObjectCollectionAircrewGroup aircrews)
+    private static void CreateNewAircrew()
     {
         UiAssist.Halt();
     }
 
-    public static void AddNewCrewMember(ObjectCollectionAircrewGroup aircrews)
+    private static void AddNewCrewMember()
     {
         UiAssist.Halt();
     }
     
-    public static void Show(ObjectCollectionAircrewGroup aircrews)
+    public static void Show()
     {
         var running = true;
         
@@ -33,9 +34,9 @@ public class MenuAircrews : IMenu<ObjectCollectionAircrewGroup>
         while (running)
         {
             UiAssist.PromptMappedMenu([
-                KeyValuePair.Create("Prikaz svih posada", () => { ShowAllAircrews(aircrews); }),
-                KeyValuePair.Create("Kreiranje nove posade", () => { CreateNewAircrew(aircrews); }),
-                KeyValuePair.Create("Dodavanje osobe", () => { AddNewCrewMember(aircrews); }),
+                KeyValuePair.Create("Prikaz svih posada", ShowAllAircrews),
+                KeyValuePair.Create("Kreiranje nove posade", CreateNewAircrew),
+                KeyValuePair.Create("Dodavanje osobe", AddNewCrewMember),
                 backToMainMenuKvp
             ]);
         }

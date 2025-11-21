@@ -1,11 +1,10 @@
 using Internship_3_OOP.Entities;
-using Internship_3_OOP.Entities.ObjectCollections;
 
 namespace Internship_3_OOP.Static.Menus;
 
-public class MenuMain : IMenu<EntityGlobalStorage>
+public static class MenuMain
 {
-    public static void Show(EntityGlobalStorage storage)
+    public static void Show()
     {
         var running = true;
         
@@ -14,7 +13,7 @@ public class MenuMain : IMenu<EntityGlobalStorage>
         
         while (running)
         {
-            var currentUser = storage.Users.GetActiveUser();
+            var currentUser = Storage.Users.GetActiveUser();
 
             if (currentUser is not null)
             {
@@ -23,7 +22,7 @@ public class MenuMain : IMenu<EntityGlobalStorage>
                 if (currentUser.Level != Level.Admin)
                 {
                     UiAssist.PromptMappedMenu([
-                        KeyValuePair.Create("Opcije za putnike", () => { MenuPassengers.Show(storage.Users); }),
+                        KeyValuePair.Create("Opcije za putnike", MenuPassengers.Show),
                         KeyValuePair.Create("Odjava", UiAssist.Halt),
                         KeyValuePair.Create("Izlaz iz programa", () => { running = false; })
                     ], menuSubtitle);
@@ -31,10 +30,10 @@ public class MenuMain : IMenu<EntityGlobalStorage>
                 else
                 {
                     UiAssist.PromptMappedMenu([
-                        KeyValuePair.Create("Korisnici (putnici)", () => { storage.Users.PrintDataTable(true); }),
-                        KeyValuePair.Create("Letovi", () => { MenuFlights.Show(storage.Flights); }),
-                        KeyValuePair.Create("Avioni", () => { MenuAirplanes.Show(storage.Airplanes); }),
-                        KeyValuePair.Create("Posada", () => { MenuAircrews.Show(storage.AircrewGroup); }),
+                        KeyValuePair.Create("Korisnici (putnici)", () => { Storage.Users.PrintDataTable(true); }),
+                        KeyValuePair.Create("Letovi", MenuFlights.Show),
+                        KeyValuePair.Create("Avioni", MenuAirplanes.Show),
+                        KeyValuePair.Create("Posada", MenuAircrews.Show),
                         KeyValuePair.Create("Odjava", UiAssist.Halt),
                         KeyValuePair.Create("Izlaz iz programa", () => { running = false; })
                     ], menuSubtitle);
