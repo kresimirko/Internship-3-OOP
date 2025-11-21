@@ -2,7 +2,8 @@ using System.Collections;
 
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public abstract class ObjectCollection<T>(List<T>? members = null) : Entity, IEnumerable<T> where T : Entity
+public abstract class ObjectCollection<T>(List<T>? members = null, string onTableFail = "Nema članova.")
+    : Entity, IEnumerable<T> where T : Entity
 {
     public List<T> Members { get; } = members ?? [];
 
@@ -16,9 +17,12 @@ public abstract class ObjectCollection<T>(List<T>? members = null) : Entity, IEn
         return GetEnumerator();
     }
     
-    public void Add(T member)
+    public virtual void Add(T member)
     {
+        if (Members.Contains(member)) return;
+        
         Members.Add(member);
+        UpdateDateOfModification();
     }
 
     public void Remove(T member)
@@ -31,22 +35,21 @@ public abstract class ObjectCollection<T>(List<T>? members = null) : Entity, IEn
         Members.RemoveAll(x => x.Guid == guid);
     }
 
-    public virtual string TurnDataTableIntoString()
-    {
-        var table = new List<List<string>> {};
-        table.Add(["ID", "Vrijeme stvaranja"]);
-        table.AddRange(Members.Select(member => (List<string>)
-        [
-            member.Guid.ToString(),
-            member.DateOfCreation.ToString("yyyy-MM-dd")
-        ]));
-    
-        return UiAssist.TurnTableIntoString(table);
-    }
+    public abstract string TurnDataTableIntoString();
 
-    public virtual void PrintDataTable(bool shouldHalt = false)
+    public void PrintDataTable(bool shouldHalt = false)
     {
+        if (Members.Count == 0)
+        {
+            Console.WriteLine(onTableFail + "\n");
+            UiAssist.Halt();
+            return;
+        }
+        
         Console.WriteLine(TurnDataTableIntoString());
-        if (shouldHalt) UiAssist.Halt();
+
+        if (!shouldHalt) return;
+        Console.WriteLine();
+        UiAssist.Halt();
     }
 }

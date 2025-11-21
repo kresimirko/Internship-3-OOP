@@ -37,11 +37,11 @@ public static class MenuUsers
     
     public static void SignOut()
     {
-        UiAssist.PromptMappedYesNoChoiceAndReport(
+        UiAssist.PromptMappedYesNoChoice(
             Storage.Users.SignOut,
-            "Da",
-            () => {},
-            "Ne",
+            () => {}, 
+            "Odjavljeni ste.",
+            "Odjava otkazana.",
             "[!] Jeste li sigurni da se želite odjaviti? [!]");
     }
     

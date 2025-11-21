@@ -1,4 +1,5 @@
 using System.Net.Mail;
+using Internship_3_OOP.Entities.ObjectCollections;
 
 namespace Internship_3_OOP.Entities;
 
@@ -10,13 +11,13 @@ public class EntityUser(
     string password,
     Gender gender,
     UserLevel level,
-    List<EntityFlight>? flights = null)
+    ObjectCollectionFlights? flights = null)
     : EntityPerson(firstName, lastName, dateOfBirth, gender)
 {
     public MailAddress Email { get; } = email;
     public string Password { get; } = password;
     public UserLevel Level { get; } = level;
-    public List<EntityFlight> FlightList { get; } = flights ?? [];
+    public ObjectCollectionFlights Flights { get; } = flights ?? [];
     
     public static readonly Dictionary<UserLevel, string> UserLevelCroatianMap = new Dictionary<UserLevel, string>
     {

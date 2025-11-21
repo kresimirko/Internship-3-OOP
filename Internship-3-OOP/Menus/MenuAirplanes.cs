@@ -4,11 +4,15 @@ public static class MenuAirplanes
 {
     private static void ShowAllAirplanes()
     {
+        UiAssist.ClearAndPrintAppHeader("Prikaz svih aviona");
+        
         Storage.Airplanes.PrintDataTable(true);
     }
 
     private static void AddNewAirplane()
     {
+        UiAssist.ClearAndPrintAppHeader("Dodavanje novog aviona");
+        
         UiAssist.Halt();
     }
 
@@ -17,7 +21,7 @@ public static class MenuAirplanes
         UiAssist.PromptMenu([
             "Po ID-u",
             "Po nazivu"
-        ]);
+        ], "Pretraživanje aviona");
         UiAssist.Halt();
     }
 
@@ -26,7 +30,7 @@ public static class MenuAirplanes
         UiAssist.PromptMenu([
             "Po ID-u",
             "Po nazivu"
-        ]);
+        ], "Brisanje aviona");
         UiAssist.Halt();
     }
     

@@ -4,11 +4,15 @@ public class MenuFlights
 {
     private static void ShowAllFlights()
     {
+        UiAssist.ClearAndPrintAppHeader("Prikaz svih letova");
+        
         Storage.Flights.PrintDataTable(true);
     }
 
     private static void AddFlight()
     {
+        UiAssist.ClearAndPrintAppHeader("Dodavanje leta");
+        
         UiAssist.Halt();
     }
 
@@ -17,17 +21,21 @@ public class MenuFlights
         UiAssist.PromptMenu([
             "Po ID-u",
             "Po nazivu"
-        ]);
+        ], "Pretraživanje letova");
         UiAssist.Halt();
     }
 
     private static void EditFlight()
     {
+        UiAssist.ClearAndPrintAppHeader("Uređivanje leta");
+        
         UiAssist.Halt();
     }
 
     private static void DeleteFlight()
     {
+        UiAssist.ClearAndPrintAppHeader("Brisanje leta");
+        
         UiAssist.Halt();
     }
     

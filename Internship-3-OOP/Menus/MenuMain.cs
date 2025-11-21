@@ -4,6 +4,13 @@ namespace Internship_3_OOP.Menus;
 
 public static class MenuMain
 {
+    private static void ShowAllUsers()
+    {
+        UiAssist.ClearAndPrintAppHeader("Korisnici (putnici)");
+        
+        Storage.Users.PrintDataTable(true);
+    }
+    
     public static void Show()
     {
         var running = true;
@@ -30,7 +37,7 @@ public static class MenuMain
                 else
                 {
                     UiAssist.PromptMappedMenu([
-                        KeyValuePair.Create("Korisnici (putnici)", () => { Storage.Users.PrintDataTable(true); }),
+                        KeyValuePair.Create("Korisnici (putnici)", ShowAllUsers),
                         KeyValuePair.Create("Letovi", MenuFlights.Show),
                         KeyValuePair.Create("Avioni", MenuAirplanes.Show),
                         KeyValuePair.Create("Posada", MenuAircrews.Show),

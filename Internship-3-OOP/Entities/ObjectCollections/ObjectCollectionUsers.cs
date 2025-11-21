@@ -6,14 +6,11 @@ public class ObjectCollectionUsers(List<EntityUser>? members = null) : ObjectCol
 {
     public Guid ActiveUser { get; private set; } = Guid.Empty;
     
-    public void Add(string firstName, string lastName, DateOnly dateOfBirth, MailAddress email,
-        string password, Gender gender, UserLevel level)
-    {
-        Members.Add(new EntityUser(firstName, lastName, dateOfBirth, email, password, gender, level));
-    }
-
     public string SignIn(MailAddress email, string password)
     {
+        if (ActiveUser != Guid.Empty)
+            return "Neuspješno, netko je već prijavljen";
+        
         foreach (var user in Members.Where(user => user.Email.Address == email.Address && user.Password == password))
         {
             ActiveUser = user.Guid;
@@ -21,6 +18,18 @@ public class ObjectCollectionUsers(List<EntityUser>? members = null) : ObjectCol
         }
 
         return "Neispravan email ili lozinka";
+    }
+    
+    public string SignIn(EntityUser user)
+    {
+        if (ActiveUser != Guid.Empty)
+            return "Neuspješno, netko je već prijavljen";
+        
+        if (Members.All(storedUser => storedUser.Guid != user.Guid))
+            return "Neuspješno, korisnik ne postoji";
+        
+        ActiveUser = user.Guid;
+        return "Uspješno";
     }
 
     public string SignUp(string firstName, string lastName, DateOnly dateOfBirth, MailAddress email,
@@ -47,12 +56,7 @@ public class ObjectCollectionUsers(List<EntityUser>? members = null) : ObjectCol
     {
         ActiveUser = Guid.Empty;
     }
-
-    public void DEBUG_SetFirstUserInUserListToSignedInIfThereAreAny()
-    {
-        if (Members.Count != 0) ActiveUser = Members.First().Guid;
-    }
-
+    
     public EntityUser? GetActiveUser()
     {
         return (from user in Members where user.Guid == ActiveUser select user).FirstOrDefault();
@@ -66,9 +70,9 @@ public class ObjectCollectionUsers(List<EntityUser>? members = null) : ObjectCol
         [
             user.FirstName,
             user.LastName,
-            user.DateOfBirth.ToString("yyyy-MM-dd"),
+            user.DateOfBirth.ToString("d"),
             user.Email.Address,
-            user.Gender.ToString()
+            EntityPerson.GenderCroatianMap[user.Gender]
         ]));
     
         return UiAssist.TurnTableIntoString(table);

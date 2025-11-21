@@ -4,20 +4,26 @@ public static class MenuAircrews
 {
     private static void ShowAllAircrews()
     {
-        Storage.AircrewGroup.PrintDataTable();
-        foreach (var aircrew in Storage.AircrewGroup)
-            aircrew.PrintDataTable();
+        UiAssist.ClearAndPrintAppHeader("Prikaz svih posada");
         
-        UiAssist.Halt();
+        Storage.AircrewGroup.PrintDataTable(true);
+
+        if (!Storage.AircrewGroup.Any()) return;
+        foreach (var aircrew in Storage.AircrewGroup)
+            aircrew.PrintDataTable(true);
     }
 
     private static void CreateNewAircrew()
     {
+        UiAssist.ClearAndPrintAppHeader("Kreiranje nove posade");
+        
         UiAssist.Halt();
     }
 
     private static void AddNewCrewMember()
     {
+        UiAssist.ClearAndPrintAppHeader("Dodavanje osobe");
+        
         UiAssist.Halt();
     }
     

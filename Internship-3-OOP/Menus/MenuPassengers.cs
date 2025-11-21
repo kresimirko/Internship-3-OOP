@@ -1,10 +1,24 @@
+using Internship_3_OOP.Entities;
+
 namespace Internship_3_OOP.Menus;
 
 public static class MenuPassengers
 {
     private static void ShowAllFlights()
     {
-        UiAssist.Halt();
+        UiAssist.ClearAndPrintAppHeader("Prikaz svih letova");
+
+        var activeUser = Storage.Users.GetActiveUser();
+        
+        if (activeUser is null) return;
+        if (!activeUser.Flights.Any())
+        {
+            Console.WriteLine("Nemate dodanih letova.\n");
+            UiAssist.Halt();
+            return;
+        }
+
+        activeUser.Flights.PrintDataTable(true);
     }
     
     private static void PickFlight()
@@ -17,7 +31,7 @@ public static class MenuPassengers
         UiAssist.PromptMenu([
             "Po ID-u",
             "Po nazivu"
-        ]);
+        ], "Pretraživanje letova");
         UiAssist.Halt();
     }
     

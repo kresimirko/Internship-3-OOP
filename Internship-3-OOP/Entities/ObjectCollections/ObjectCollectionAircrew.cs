@@ -1,15 +1,9 @@
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
 public class ObjectCollectionAircrew(string name, List<EntityCrewMember>? members = null)
-    : ObjectCollection<EntityCrewMember>(members)
+    : ObjectCollection<EntityCrewMember>(members, "Nema članova posade.")
 {
     public string Name { get; private set; } = name;
-    
-    public void Add(string firstName, string lastName, DateOnly dateOfBirth, string email,
-        string password, Gender gender, AircrewRole role)
-    {
-        Members.Add(new EntityCrewMember(firstName, lastName, dateOfBirth, email, password, gender, role));
-    }
     
     public override string TurnDataTableIntoString()
     {
@@ -19,9 +13,9 @@ public class ObjectCollectionAircrew(string name, List<EntityCrewMember>? member
         [
             crewMember.FirstName,
             crewMember.LastName,
-            crewMember.Role.ToString(),
-            crewMember.Gender.ToString(),
-            crewMember.DateOfBirth.ToString("yyyy-MM-dd")
+            EntityCrewMember.AircrewRolesCroatianMap[crewMember.Role],
+            EntityPerson.GenderCroatianMap[crewMember.Gender],
+            crewMember.DateOfBirth.ToString("d")
         ]));
     
         return UiAssist.TurnTableIntoString(table);

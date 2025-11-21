@@ -53,12 +53,36 @@ public static class UiAssist
         options[(choice == 0 ? options.Count : choice) - 1].Value();
     }
 
-    public static void PromptMappedYesNoChoiceAndReport(Action onYes, string onYesCaption, Action onNo,
-        string onNoCaption, string? subtitle = null)
+    public static bool PromptYesNoChoice(
+        string onYesCaption = "Radnja obavljena.", string onNoCaption = "Radnja otkazana.", string? subtitle = null)
     {
         ClearAndPrintAppHeader(subtitle);
         
-        Console.WriteLine("y - {0}\nn - {1}\n", onYesCaption, onNoCaption);
+        Console.WriteLine("y - Da\nn - Ne\n");
+
+        var choice = OneLinePrompt<string>("Upišite y ili n: ");
+        choice = choice.ToLower();
+
+        switch (choice)
+        {
+            case "y":
+                Console.WriteLine("\n{0}\n", onYesCaption);
+                return true;
+            case "n":
+                Console.WriteLine("\n{0}\n", onNoCaption);
+                return false;
+            default:
+                Console.WriteLine("\nVaš odabir je interpretiran kao ne.");
+                goto case "n";
+        }
+    }
+
+    public static void PromptMappedYesNoChoice(Action onYes, Action onNo,
+        string onYesCaption = "Radnja obavljena.", string onNoCaption = "Radnja otkazana.", string? subtitle = null)
+    {
+        ClearAndPrintAppHeader(subtitle);
+        
+        Console.WriteLine("y - Da\nn - Ne\n");
 
         var choice = OneLinePrompt<string>("Upišite y ili n: ");
         choice = choice.ToLower();
@@ -67,11 +91,11 @@ public static class UiAssist
         {
             case "y":
                 onYes();
-                Console.WriteLine("\nRadnja obavljena.\n");
+                Console.WriteLine("\n{0}\n", onYesCaption);
                 break;
             case "n":
                 onNo();
-                Console.WriteLine("\nRadnja otkazana.\n");
+                Console.WriteLine("\n{0}\n", onNoCaption);
                 break;
             default:
                 Console.WriteLine("\nVaš odabir je interpretiran kao ne.");
@@ -197,5 +221,10 @@ public static class UiAssist
     public static void PrintTable(List<List<string>> tableData)
     {
         Console.WriteLine(TurnTableIntoString(tableData));
+    }
+
+    public static string GetShortGuidString(Guid guid)
+    {
+        return guid.ToString().Split('-')[0] + "-(...)";
     }
 }

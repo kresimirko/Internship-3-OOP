@@ -7,7 +7,6 @@ public static class Program
     private static void Main()
     {
         Storage.CreateDemoData();
-        Storage.Users.DEBUG_SetFirstUserInUserListToSignedInIfThereAreAny();
         
         MenuMain.Show();
     }
