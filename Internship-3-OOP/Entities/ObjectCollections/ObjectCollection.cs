@@ -1,9 +1,13 @@
 using System.Collections;
+using System.Collections.Immutable;
 
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public abstract class ObjectCollection<T>(List<T>? members = null, string onTableFail = "Nema članova.")
-    : Entity, IEnumerable<T> where T : Entity
+public abstract class ObjectCollection<T>(
+    string? name = null,
+    List<T>? members = null,
+    string onTableFail = "Nema članova.")
+    : Entity(name), IEnumerable<T> where T : Entity
 {
     public List<T> Members { get; } = members ?? [];
 
@@ -52,5 +56,22 @@ public abstract class ObjectCollection<T>(List<T>? members = null, string onTabl
         if (!shouldHalt) return;
         Console.WriteLine();
         UiAssist.Halt();
+    }
+    
+    public static List<T> GetSearchResults(ObjectCollection<T> collection, string subtitle)
+    {
+        var choice = UiAssist.PromptMenu([
+            "Po kratkom ID-u",
+            "Po nazivu"
+        ], subtitle);
+
+        Console.WriteLine();
+        var query = UiAssist.OneLinePrompt<string>("Pretraga: ");
+
+        var searchResults = (from item in collection
+            where (choice == 1 ? UiAssist.GetShortGuidString(item.Guid) : item.Name).Contains(query)
+            select item).ToList();
+
+        return searchResults;
     }
 }

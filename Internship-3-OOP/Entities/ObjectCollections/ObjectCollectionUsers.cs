@@ -2,7 +2,8 @@ using System.Net.Mail;
 
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public class ObjectCollectionUsers(List<EntityUser>? members = null) : ObjectCollection<EntityUser>(members)
+public class ObjectCollectionUsers(string? name = null, List<EntityUser>? members = null)
+    : ObjectCollection<EntityUser>(name, members, "Nema korisnika.")
 {
     public EntityUser? ActiveUser { get; private set; }
     

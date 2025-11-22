@@ -1,7 +1,7 @@
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public class ObjectCollectionFlights(List<EntityFlight>? members = null)
-    : ObjectCollection<EntityFlight>(members, "Nema letova.")
+public class ObjectCollectionFlights(string? name = null, List<EntityFlight>? members = null)
+    : ObjectCollection<EntityFlight>(name, members, "Nema letova.")
 {
     public override string TurnDataTableIntoString()
     {
@@ -11,7 +11,7 @@ public class ObjectCollectionFlights(List<EntityFlight>? members = null)
         [
             i.ToString(),
             UiAssist.GetShortGuidString(flight.Guid),
-            flight.Title,
+            flight.Name,
             flight.Departure.ToString("G"),
             flight.Arrival.ToString("G"),
             flight.ArrivalLocation,

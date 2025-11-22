@@ -1,3 +1,6 @@
+using Internship_3_OOP.Entities;
+using Internship_3_OOP.Entities.ObjectCollections;
+
 namespace Internship_3_OOP.Menus;
 
 public static class MenuAirplanes
@@ -15,14 +18,19 @@ public static class MenuAirplanes
         
         UiAssist.Halt();
     }
-
+    
     private static void SearchAirplanes()
     {
-        UiAssist.PromptMenu([
-            "Po ID-u",
-            "Po nazivu"
-        ], "Pretraživanje aviona");
-        UiAssist.Halt();
+        if (Storage.Users.ActiveUser is null)
+            throw new NullReferenceException("User is null (shouldn't be at this point)");
+
+        var searchResults =
+            ObjectCollection<EntityAirplane>.GetSearchResults(Storage.Airplanes,
+                "Pretraživanje rezerviranih letova");
+        var searchResultsCollection = new ObjectCollectionAirplanes(null, searchResults);
+        
+        Console.WriteLine();
+        searchResultsCollection.PrintDataTable(true);
     }
 
     private static void DeleteAirplane()

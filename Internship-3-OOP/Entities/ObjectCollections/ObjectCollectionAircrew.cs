@@ -1,10 +1,8 @@
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public class ObjectCollectionAircrew(string name, List<EntityCrewMember>? members = null)
-    : ObjectCollection<EntityCrewMember>(members, "Nema članova posade.")
+public class ObjectCollectionAircrew(string? name = null, List<EntityCrewMember>? members = null)
+    : ObjectCollection<EntityCrewMember>(name, members, "Nema članova posade.")
 {
-    public string Name { get; private set; } = name;
-    
     public override string TurnDataTableIntoString()
     {
         var table = new List<List<string>> {};

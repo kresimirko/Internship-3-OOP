@@ -42,7 +42,7 @@ public static class MenuUsers
             () => {}, 
             "Odjavljeni ste.",
             "Odjava otkazana.",
-            "[!] Jeste li sigurni da se želite odjaviti? [!]");
+            "Jeste li sigurni da se želite odjaviti?");
     }
     
     public static bool Startup()

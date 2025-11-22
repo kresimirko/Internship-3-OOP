@@ -1,6 +1,9 @@
+using Internship_3_OOP.Entities;
+using Internship_3_OOP.Entities.ObjectCollections;
+
 namespace Internship_3_OOP.Menus;
 
-public class MenuFlights
+public static class MenuFlights
 {
     public static void ShowAllFlights()
     {
@@ -18,11 +21,13 @@ public class MenuFlights
 
     private static void SearchFlights()
     {
-        UiAssist.PromptMenu([
-            "Po ID-u",
-            "Po nazivu"
-        ], "Pretraživanje letova");
-        UiAssist.Halt();
+        var searchResults =
+            ObjectCollection<EntityFlight>.GetSearchResults(Storage.Flights,
+                "Pretraživanje letova");
+        var searchResultsCollection = new ObjectCollectionFlights(null, searchResults);
+        
+        Console.WriteLine();
+        searchResultsCollection.PrintDataTable(true);
     }
 
     private static void EditFlight()

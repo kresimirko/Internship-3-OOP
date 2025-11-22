@@ -1,7 +1,7 @@
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public class ObjectCollectionAircrewGroup(List<ObjectCollectionAircrew>? members = null)
-    : ObjectCollection<ObjectCollectionAircrew>(members, "Nema posada.")
+public class ObjectCollectionAircrewGroup(string? name = null, List<ObjectCollectionAircrew>? members = null)
+    : ObjectCollection<ObjectCollectionAircrew>(name, members, "Nema posada.")
 {
     public override string TurnDataTableIntoString()
     {

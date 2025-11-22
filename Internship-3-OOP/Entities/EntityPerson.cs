@@ -4,7 +4,7 @@ public abstract class EntityPerson(
     string firstName,
     string lastName,
     DateOnly dateOfBirth,
-    Gender gender) : Entity
+    Gender gender) : Entity(firstName)
 {
     public string FirstName { get; private set; } = firstName;
     public string LastName { get; private set; } = lastName;

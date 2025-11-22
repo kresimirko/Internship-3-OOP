@@ -1,7 +1,7 @@
 namespace Internship_3_OOP.Entities.ObjectCollections;
 
-public class ObjectCollectionAirplanes(List<EntityAirplane>? members = null)
-    : ObjectCollection<EntityAirplane>(members, "Nema aviona.")
+public class ObjectCollectionAirplanes(string? name = null, List<EntityAirplane>? members = null)
+    : ObjectCollection<EntityAirplane>(name, members, "Nema aviona.")
 {
     public override string TurnDataTableIntoString()
     {
@@ -10,7 +10,7 @@ public class ObjectCollectionAirplanes(List<EntityAirplane>? members = null)
         table.AddRange(Members.Select(airplane => (List<string>)
         [
             UiAssist.GetShortGuidString(airplane.Guid),
-            airplane.Title,
+            airplane.Name,
             airplane.ManufactureYear.ToString(),
             airplane.Flights.Count.ToString(),
             string.Join(", ", (from category in airplane.FlightCategoriesAndSeats

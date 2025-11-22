@@ -1,3 +1,4 @@
+using Internship_3_OOP.Entities;
 using Internship_3_OOP.Entities.ObjectCollections;
 
 namespace Internship_3_OOP.Menus;
@@ -57,7 +58,7 @@ public static class MenuPassengers
             "Odaberite broj leta koji želite rezervirati: ");
 
         if (!UiAssist.PromptYesNoChoice("Rezerviranje leta uspješno.", "Rezerviranje leta otkazano.",
-                $"Jeste li sigurni da želite dodati let \"{temporaryFlightCollection.Members[choice].Title}\" (odabir {choice})?"))
+                $"Jeste li sigurni da želite dodati let \"{temporaryFlightCollection.Members[choice].Name}\" (odabir {choice})?"))
             return;
 
         Storage.Users.ActiveUser.Flights.Add(temporaryFlightCollection.Members[choice]);
@@ -66,26 +67,17 @@ public static class MenuPassengers
         Console.WriteLine("Vaši trenutačni letovi:\n");
         Storage.Users.ActiveUser.Flights.PrintDataTable(true);
     }
-    
+
     private static void SearchFlights()
     {
-        var choice = UiAssist.PromptMenu([
-            "Po kratkom ID-u",
-            "Po nazivu"
-        ], "Pretraživanje letova");
-        
         if (Storage.Users.ActiveUser is null)
             throw new NullReferenceException("User is null (shouldn't be at this point)");
 
-        Console.WriteLine();
-        var query = UiAssist.OneLinePrompt<string>("Pretraga: ");
-
-        var searchResults = (from flight in Storage.Users.ActiveUser.Flights
-            where (choice == 1 ? UiAssist.GetShortGuidString(flight.Guid) : flight.Title).Contains(query)
-            select flight).ToArray();
-        var searchResultsCollection = new ObjectCollectionFlights();
-        searchResultsCollection.Members.AddRange(searchResults);
-            
+        var searchResults =
+            ObjectCollection<EntityFlight>.GetSearchResults(Storage.Users.ActiveUser.Flights,
+                "Pretraživanje rezerviranih letova");
+        var searchResultsCollection = new ObjectCollectionFlights(null, searchResults);
+        
         Console.WriteLine();
         searchResultsCollection.PrintDataTable(true);
     }
@@ -119,7 +111,7 @@ public static class MenuPassengers
             "Odaberite broj leta koji želite otkazati: ");
 
         if (!UiAssist.PromptYesNoChoice("Otkazivanje leta uspješno.", "Otkazivanje leta otkazano.",
-                $"Jeste li sigurni da želite otkazati let \"{cancellableFlights[choice].Title}\" (odabir {choice})?"))
+                $"Jeste li sigurni da želite otkazati let \"{cancellableFlights[choice].Name}\" (odabir {choice})?"))
             return;
 
         Storage.Users.ActiveUser.Flights.Remove(cancellableFlights[choice]);

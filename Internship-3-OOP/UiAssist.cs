@@ -56,7 +56,7 @@ public static class UiAssist
     public static bool PromptYesNoChoice(
         string onYesCaption = "Radnja obavljena.", string onNoCaption = "Radnja otkazana.", string? subtitle = null)
     {
-        ClearAndPrintAppHeader(subtitle);
+        ClearAndPrintAppHeader($"[!] {subtitle} [!]");
         
         Console.WriteLine("y - Da\nn - Ne\n");
 
@@ -80,7 +80,7 @@ public static class UiAssist
     public static void PromptMappedYesNoChoice(Action onYes, Action onNo,
         string onYesCaption = "Radnja obavljena.", string onNoCaption = "Radnja otkazana.", string? subtitle = null)
     {
-        ClearAndPrintAppHeader(subtitle);
+        ClearAndPrintAppHeader($"[!] {subtitle} [!]");
         
         Console.WriteLine("y - Da\nn - Ne\n");
 
