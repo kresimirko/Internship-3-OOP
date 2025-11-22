@@ -6,7 +6,7 @@ public abstract class Entity
     public DateTime DateOfCreation { get; } = DateTime.Now;
     public DateTime DateOfModification { get; private set; } = DateTime.Now;
 
-    public void UpdateDateOfModification()
+    protected void UpdateDateOfModification()
     {
         DateOfModification = DateTime.Now;
     }

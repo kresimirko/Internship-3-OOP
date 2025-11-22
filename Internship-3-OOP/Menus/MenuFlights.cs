@@ -2,7 +2,7 @@ namespace Internship_3_OOP.Menus;
 
 public class MenuFlights
 {
-    private static void ShowAllFlights()
+    public static void ShowAllFlights()
     {
         UiAssist.ClearAndPrintAppHeader("Prikaz svih letova");
         

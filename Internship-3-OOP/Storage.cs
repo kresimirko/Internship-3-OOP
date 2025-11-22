@@ -13,6 +13,8 @@ public static class Storage
     
     public static void CreateDemoData()
     {
+        const string airport = "Glavna Luka";
+        
         AircrewGroup.Add(new ObjectCollectionAircrew("Glavna", [
             new EntityCrewMember(
                 "asdf",
@@ -49,15 +51,17 @@ public static class Storage
         Airplanes.Add(new EntityAirplane("Def", 2011, demoSeats));
         Airplanes.Add(new EntityAirplane("Ghi", 2012, demoSeats));
 
-        var flight1 = new EntityFlight("jedan", DateTime.Now, DateTime.Now, 123);
-        var flight2 = new EntityFlight("dva", DateTime.Now, DateTime.Now, 234);
-        var flight3 = new EntityFlight("tri", DateTime.Now, DateTime.Now, 345);
-        var flight4 = new EntityFlight("četiri", DateTime.Now, DateTime.Now, 321);
-        var flight5 = new EntityFlight("pet", DateTime.Now, DateTime.Now, 432);
-        var flight6 = new EntityFlight("šest", DateTime.Now, DateTime.Now, 543);
-        var flight7 = new EntityFlight("sedam", DateTime.Now, DateTime.Now, 121);
-        var flight8 = new EntityFlight("osam", DateTime.Now, DateTime.Now, 212);
-        var flight9 = new EntityFlight("devet", DateTime.Now, DateTime.Now, 323);
+        var demoTimespanArrival = new TimeSpan(0, 12, 23);
+        var demoTimespanOffset = new TimeSpan(2, 0, 0, 0);
+        var flight1 = new EntityFlight("jedan", DateTime.Now, airport, DateTime.Now.Add(demoTimespanArrival), "a", 123);
+        var flight2 = new EntityFlight("dva", DateTime.Now, airport, DateTime.Now.Add(demoTimespanArrival), "b",234);
+        var flight3 = new EntityFlight("tri", DateTime.Now.Add(demoTimespanOffset), airport, DateTime.Now.Add(demoTimespanOffset).Add(demoTimespanArrival), "c",345);
+        var flight4 = new EntityFlight("četiri", DateTime.Now, airport, DateTime.Now.Add(demoTimespanArrival), "a",321);
+        var flight5 = new EntityFlight("pet", DateTime.Now, airport, DateTime.Now.Add(demoTimespanArrival), "b",432);
+        var flight6 = new EntityFlight("šest", DateTime.Now.Add(demoTimespanOffset), airport, DateTime.Now.Add(demoTimespanOffset).Add(demoTimespanArrival), "c",543);
+        var flight7 = new EntityFlight("sedam", DateTime.Now, airport, DateTime.Now.Add(demoTimespanArrival), "a",121);
+        var flight8 = new EntityFlight("osam", DateTime.Now, airport, DateTime.Now.Add(demoTimespanArrival), "b",212);
+        var flight9 = new EntityFlight("devet", DateTime.Now.Add(demoTimespanOffset), airport, DateTime.Now.Add(demoTimespanOffset).Add(demoTimespanArrival), "c",323);
         Flights.Add(flight1);
         Flights.Add(flight2);
         Flights.Add(flight3);

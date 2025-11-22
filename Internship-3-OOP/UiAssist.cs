@@ -199,7 +199,7 @@ public static class UiAssist
         var tableSeparator = '+' + new string('-',
             maxStringLengthForEachColumn.Sum() + 3 * maxStringLengthForEachColumn.Length - 1) + '+';
 
-        table += $"\n{tableSeparator}\n";
+        table += $"{tableSeparator}\n";
 
         for (var j = 0; j < tableData.Count; j++)
         {

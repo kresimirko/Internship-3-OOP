@@ -6,7 +6,7 @@ public class ObjectCollectionFlights(List<EntityFlight>? members = null)
     public override string TurnDataTableIntoString()
     {
         var table = new List<List<string>> {};
-        table.Add(["#", "Kratki ID", "Naziv", "Datum polaska", "Datum dolaska", "Udaljenost", "Vrijeme putovanja"]);
+        table.Add(["#", "Kratki ID", "Naziv", "Datum polaska", "Datum dolaska", "Mjesto dolaska", "Udaljenost", "Vrijeme putovanja"]);
         table.AddRange(Members.Select((flight, i) => (List<string>)
         [
             i.ToString(),
@@ -14,6 +14,7 @@ public class ObjectCollectionFlights(List<EntityFlight>? members = null)
             flight.Title,
             flight.Departure.ToString("G"),
             flight.Arrival.ToString("G"),
+            flight.ArrivalLocation,
             flight.Distance.ToString() + " km",
             UiAssist.GetShortTimeSpan(flight.Arrival - flight.Departure)
         ]));
