@@ -27,7 +27,7 @@ public static class MenuUsers
         var dateOfBirth = UiAssist.OneLinePrompt<DateOnly>("Datum rođenja (YYYY-MM-DD): ");
         Console.Write("Spol: [pritisnite Enter]");
         Console.ReadKey();
-        var gender = UiAssist.PromptMenu(EntityPerson.GenderCroatianMap.Values.ToArray(), "Spol");
+        var gender = UiAssist.PromptMenu(EntityPerson.GenderCroatianMap.Values.ToArray(), "Spol", true) - 1;
         
         var actionResult = Storage.Users.SignUp(firstName, lastName, dateOfBirth, email, password, (Gender)gender, true);
         

@@ -30,15 +30,24 @@ public static class UiAssist
             Console.WriteLine("{0}\n", subtitle);
     }
     
-    public static int PromptMenu(string[] options, string? subtitle = null)
+    public static int PromptMenu(string[] options, string subtitle, bool dontUseZero)
     {
         ClearAndPrintAppHeader(subtitle);
 
-        for (var i = 0; i < options.Length; i++)
-            Console.WriteLine("{0} - {1}", i != options.Length - 1 ? i + 1 : 0, options[i]);
-
-        Console.WriteLine();
-        return OneLinePromptIntInRange(-1, options.Length);
+        if (!dontUseZero)
+        {
+            for (var i = 0; i < options.Length; i++)
+                Console.WriteLine("{0} - {1}", i != options.Length - 1 ? i + 1 : 0, options[i]);
+            Console.WriteLine();
+            return OneLinePromptIntInRange(-1, options.Length);
+        }
+        else
+        {
+            for (var i = 0; i < options.Length; i++)
+                Console.WriteLine("{0} - {1}", i + 1, options[i]);
+            Console.WriteLine();
+            return OneLinePromptIntInRange(0, options.Length + 1);
+        }
     }
 
     public static void PromptMappedMenu(List<KeyValuePair<string, Action>> options, string? subtitle = null)

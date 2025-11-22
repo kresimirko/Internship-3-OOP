@@ -9,6 +9,8 @@ public class EntityCrewMember(
     : EntityPerson(firstName, lastName, dateOfBirth, gender)
 {
     public AircrewRole Role { get; } = role;
+
+    public bool IsInAnAircrew { get; set; } = false;
     
     public static readonly Dictionary<AircrewRole, string> AircrewRolesCroatianMap = new Dictionary<AircrewRole, string>
     {

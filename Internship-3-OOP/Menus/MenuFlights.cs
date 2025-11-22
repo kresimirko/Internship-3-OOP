@@ -33,12 +33,12 @@ public static class MenuFlights
         Console.Write("Avion: [pritisnite Enter]");
         Console.ReadKey();
         var airplane = Storage.Airplanes.Members[UiAssist.PromptMenu(
-            Storage.Airplanes.Members.Select(airplane => airplane.Name).ToArray(), "Avion")];
+            Storage.Airplanes.Members.Select(airplane => airplane.Name).ToArray(), "Avion", true) - 1];
         
         Console.Write("Posada: [pritisnite Enter]");
         Console.ReadKey();
         var aircrew = Storage.AircrewGroup.Members[UiAssist.PromptMenu(
-            Storage.AircrewGroup.Members.Select(aircrew => aircrew.Name).ToArray(), "Posada")];
+            Storage.AircrewGroup.Members.Select(aircrew => aircrew.Name).ToArray(), "Posada", true) - 1];
         
         if (!UiAssist.PromptYesNoChoice("Dodavanje leta...", "Dodavanje leta otkazano.",
                 $"Jeste li sigurni da želite dodati let \"{name}\"?"))
@@ -54,7 +54,7 @@ public static class MenuFlights
         var choice = UiAssist.PromptMenu([
             "Po ID-u",
             "Po nazivu"
-        ], "Brisanje aviona");
+        ], "Brisanje aviona", true);
 
         EntityFlight[] selected;
         switch (choice)
@@ -81,7 +81,7 @@ public static class MenuFlights
                 Storage.Flights.Remove(selected[0]);
                 Console.WriteLine("Brisanje leta uspješno.\n");
                 break;
-            case 0:
+            case 2:
                 Console.WriteLine("Molimo vas upišite puni naziv. Evo svih aviona:");
                 Storage.Flights.PrintDataTable();
                 
@@ -143,7 +143,7 @@ public static class MenuFlights
         Console.Write("Posada: [pritisnite Enter]");
         Console.ReadKey();
         var newAircrew = Storage.AircrewGroup.Members[UiAssist.PromptMenu(
-            Storage.AircrewGroup.Members.Select(aircrew => aircrew.Name).ToArray(), "Posada")];
+            Storage.AircrewGroup.Members.Select(aircrew => aircrew.Name).ToArray(), "Posada", true) - 1];
         
         if (!UiAssist.PromptYesNoChoice("Uređivanje leta...", "Uređivanje leta otkazano.",
                 $"Jeste li sigurni da želite urediti let \"{selected[0].Name}\"?"))

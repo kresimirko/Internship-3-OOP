@@ -63,7 +63,7 @@ public abstract class ObjectCollection<T>(
         var choice = UiAssist.PromptMenu([
             "Po ID-u",
             "Po nazivu"
-        ], subtitle);
+        ], subtitle, true);
 
         Console.WriteLine();
         var query = UiAssist.OneLinePrompt<string>("Pretraga: ").ToLower();

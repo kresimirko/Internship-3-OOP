@@ -35,7 +35,7 @@ public static class MenuAirplanes
         var categoriesAreDone = false;
         while (!categoriesAreDone)
         {
-            var choice = UiAssist.PromptMenu(options.ToArray(), "Kategorije");
+            var choice = UiAssist.PromptMenu(options.ToArray(), "Kategorije", false);
             if (choice == 0)
             {
                 categoriesAreDone = true;
@@ -84,7 +84,7 @@ public static class MenuAirplanes
         var choice = UiAssist.PromptMenu([
             "Po ID-u",
             "Po nazivu"
-        ], "Brisanje aviona");
+        ], "Brisanje aviona", true);
 
         EntityAirplane[] selected;
         switch (choice)
@@ -111,7 +111,7 @@ public static class MenuAirplanes
                 Storage.Airplanes.Remove(selected[0]);
                 Console.WriteLine("Brisanje aviona uspješno.\n");
                 break;
-            case 0:
+            case 2:
                 Console.WriteLine("Molimo vas upišite puni naziv. Evo svih aviona:");
                 Storage.Airplanes.PrintDataTable();
                 

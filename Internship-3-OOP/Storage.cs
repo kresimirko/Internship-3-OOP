@@ -7,6 +7,7 @@ namespace Internship_3_OOP;
 public static class Storage
 {
     public static ObjectCollectionAircrewGroup AircrewGroup { get; } = new ObjectCollectionAircrewGroup();
+    public static ObjectCollectionAircrew AllCrewMembers { get; } = new ObjectCollectionAircrew();
     public static ObjectCollectionAirplanes Airplanes { get; } = new ObjectCollectionAirplanes();
     public static ObjectCollectionFlights Flights { get; } = new ObjectCollectionFlights();
     public static ObjectCollectionUsers Users { get; } = new ObjectCollectionUsers();
@@ -15,7 +16,7 @@ public static class Storage
     {
         const string airport = "Glavna luka";
         
-        AircrewGroup.Add(new ObjectCollectionAircrew("Glavna", [
+        AllCrewMembers.Members.AddRange([
             new EntityCrewMember(
                 "asdf",
                 "ghjk",
@@ -39,8 +40,68 @@ public static class Storage
                 "fghij",
                 new DateOnly(2002,10,8),
                 Gender.Female,
+                AircrewRole.FlightAttendant),
+            new EntityCrewMember(
+                "abcd",
+                "efgh",
+                new DateOnly(2000,6,7),
+                Gender.Male,
+                AircrewRole.Pilot),
+            new EntityCrewMember(
+                "ijkl",
+                "mnop",
+                new DateOnly(2001,7,6),
+                Gender.Female,
+                AircrewRole.Copilot),
+            new EntityCrewMember(
+                "qrst",
+                "uvwx",
+                new DateOnly(1999,4,2),
+                Gender.Male,
+                AircrewRole.FlightAttendant),
+            new EntityCrewMember(
+                "yzab",
+                "cdef",
+                new DateOnly(2002,12,16),
+                Gender.Female,
+                AircrewRole.FlightAttendant),
+            new EntityCrewMember(
+                "Abcdef",
+                "Ghijkl",
+                new DateOnly(2000,6,7),
+                Gender.Male,
+                AircrewRole.Pilot),
+            new EntityCrewMember(
+                "Mnopqr",
+                "stuvwx",
+                new DateOnly(2001,7,6),
+                Gender.Female,
+                AircrewRole.Copilot),
+            new EntityCrewMember(
+                "Yzabcd",
+                "Efghij",
+                new DateOnly(2002,4,2),
+                Gender.Male,
+                AircrewRole.FlightAttendant),
+            new EntityCrewMember(
+                "Klmnop",
+                "Qrstuv",
+                new DateOnly(2003,12,16),
+                Gender.Female,
                 AircrewRole.FlightAttendant)
+        ]);
+
+        AircrewGroup.Add(new ObjectCollectionAircrew("Glavna", [
+            AllCrewMembers.Members[0],
+            AllCrewMembers.Members[1],
+            AllCrewMembers.Members[2],
+            AllCrewMembers.Members[3]
         ]));
+
+        AllCrewMembers.Members[0].IsInAnAircrew = true;
+        AllCrewMembers.Members[1].IsInAnAircrew = true;
+        AllCrewMembers.Members[2].IsInAnAircrew = true;
+        AllCrewMembers.Members[3].IsInAnAircrew = true;
         
         var demoSeats = new Dictionary<FlightCategory, int>()
         {
