@@ -4,31 +4,33 @@ namespace Internship_3_OOP.Entities.ObjectCollections;
 
 public class ObjectCollectionUsers(List<EntityUser>? members = null) : ObjectCollection<EntityUser>(members)
 {
-    public Guid ActiveUser { get; private set; } = Guid.Empty;
+    public EntityUser? ActiveUser { get; private set; }
     
     public string SignIn(MailAddress email, string password)
     {
-        if (ActiveUser != Guid.Empty)
+        if (ActiveUser is not null)
             return "Neuspješno, netko je već prijavljen";
         
         foreach (var user in Members.Where(user => user.Email.Address == email.Address && user.Password == password))
         {
-            ActiveUser = user.Guid;
+            ActiveUser = user;
+            UpdateDateOfModification();
             return "Uspješno";
         }
-
+        
         return "Neispravan email ili lozinka";
     }
     
     public string SignIn(EntityUser user)
     {
-        if (ActiveUser != Guid.Empty)
+        if (ActiveUser is not null)
             return "Neuspješno, netko je već prijavljen";
         
         if (Members.All(storedUser => storedUser.Guid != user.Guid))
             return "Neuspješno, korisnik ne postoji";
         
-        ActiveUser = user.Guid;
+        ActiveUser = user;
+        UpdateDateOfModification();
         return "Uspješno";
     }
 
@@ -42,8 +44,9 @@ public class ObjectCollectionUsers(List<EntityUser>? members = null) : ObjectCol
         {
             var newUser = new EntityUser(firstName, lastName, dateOfBirth, email, password, gender, UserLevel.Passenger);
             Add(newUser);
-            if (willBeLoggedInInstantly) ActiveUser = newUser.Guid;
+            if (willBeLoggedInInstantly) SignIn(newUser);
             
+            UpdateDateOfModification();
             return "Uspješno";
         }
         catch
@@ -54,12 +57,8 @@ public class ObjectCollectionUsers(List<EntityUser>? members = null) : ObjectCol
 
     public void SignOut()
     {
-        ActiveUser = Guid.Empty;
-    }
-    
-    public EntityUser? GetActiveUser()
-    {
-        return (from user in Members where user.Guid == ActiveUser select user).FirstOrDefault();
+        UpdateDateOfModification();
+        ActiveUser = null;
     }
     
     public override string TurnDataTableIntoString()

@@ -6,7 +6,7 @@ public class ObjectCollectionAirplanes(List<EntityAirplane>? members = null)
     public override string TurnDataTableIntoString()
     {
         var table = new List<List<string>> {};
-        table.Add(["ID", "Naziv", "Godina proizvodnje", "Broj letova", "Kategorije"]);
+        table.Add(["Kratki ID", "Naziv", "Godina proizvodnje", "Broj letova", "Kategorije"]);
         table.AddRange(Members.Select(airplane => (List<string>)
         [
             UiAssist.GetShortGuidString(airplane.Guid),

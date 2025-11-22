@@ -1,4 +1,5 @@
 using Internship_3_OOP.Entities;
+using Internship_3_OOP.Entities.ObjectCollections;
 
 namespace Internship_3_OOP.Menus;
 
@@ -8,7 +9,7 @@ public static class MenuPassengers
     {
         UiAssist.ClearAndPrintAppHeader("Prikaz svih letova");
 
-        var activeUser = Storage.Users.GetActiveUser();
+        var activeUser = Storage.Users.ActiveUser;
         
         if (activeUser is null) return;
         if (!activeUser.Flights.Any())
@@ -23,7 +24,47 @@ public static class MenuPassengers
     
     private static void PickFlight()
     {
-        UiAssist.Halt();
+        UiAssist.ClearAndPrintAppHeader("Odabir leta");
+
+        if (Storage.Users.ActiveUser is null) return;
+
+        if (!Storage.Flights.Any())
+        {
+            Console.WriteLine("Nema dostupnih letova.\n");
+            UiAssist.Halt();
+            return;
+        }
+            
+        var temporaryFlightCollection = new ObjectCollectionFlights();
+        foreach (var flight in Storage.Flights)
+        {
+            if (!Storage.Users.ActiveUser.Flights.Contains(flight))
+                temporaryFlightCollection.Add(flight);
+        }
+
+        if (!temporaryFlightCollection.Any())
+        {
+            Console.WriteLine("Nema dostupnih letova.\n");
+            UiAssist.Halt();
+            return;
+        }
+
+        Console.WriteLine("Dostupni letovi:");
+        temporaryFlightCollection.PrintDataTable();
+        Console.WriteLine();
+
+        var choice = UiAssist.OneLinePromptIntInRange(-1, temporaryFlightCollection.Count(),
+            "Odaberite let koji želite rezervirati: ");
+
+        if (!UiAssist.PromptYesNoChoice("Rezerviranje leta uspješno.", "Rezerviranje leta otkazano.",
+                $"Jeste li sigurni da želite dodati let \"{temporaryFlightCollection.Members[choice].Title}\" (odabir {choice})?"))
+            return;
+
+        Storage.Users.ActiveUser.Flights.Add(temporaryFlightCollection.Members[choice]);
+        
+        UiAssist.ClearAndPrintAppHeader("Odabir leta");
+        Console.WriteLine("Vaši trenutačni letovi:");
+        Storage.Users.ActiveUser.Flights.PrintDataTable(true);
     }
     
     private static void SearchFlights()
@@ -37,6 +78,8 @@ public static class MenuPassengers
     
     private static void CancelFlight()
     {
+        UiAssist.ClearAndPrintAppHeader("Otkazivanje leta");
+        
         UiAssist.Halt();
     }
     

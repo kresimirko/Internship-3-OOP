@@ -225,6 +225,11 @@ public static class UiAssist
 
     public static string GetShortGuidString(Guid guid)
     {
-        return guid.ToString().Split('-')[0] + "-(...)";
+        return guid.ToString().Split('-')[0];
+    }
+
+    public static string GetShortTimeSpan(TimeSpan timeSpan)
+    {
+        return new TimeSpan(timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds).ToString();
     }
 }

@@ -20,13 +20,11 @@ public static class MenuMain
         
         while (running)
         {
-            var currentUser = Storage.Users.GetActiveUser();
-
-            if (currentUser is not null)
+            if (Storage.Users.ActiveUser is not null)
             {
-                var menuSubtitle = $"Prijavljeni ste kao \"{currentUser.GetFullName()}\"";
+                var menuSubtitle = $"Prijavljeni ste kao \"{Storage.Users.ActiveUser.GetFullName()}\"";
                 
-                if (currentUser.Level != UserLevel.Admin)
+                if (Storage.Users.ActiveUser.Level != UserLevel.Admin)
                 {
                     UiAssist.PromptMappedMenu([
                         KeyValuePair.Create("Opcije za putnike", MenuPassengers.Show),
@@ -38,7 +36,7 @@ public static class MenuMain
                 {
                     UiAssist.PromptMappedMenu([
                         KeyValuePair.Create("Korisnici (putnici)", ShowAllUsers),
-                        KeyValuePair.Create("Letovi", MenuFlights.Show),
+                        KeyValuePair.Create("Letovi (kao admin)", MenuFlights.Show),
                         KeyValuePair.Create("Avioni", MenuAirplanes.Show),
                         KeyValuePair.Create("Posada", MenuAircrews.Show),
                         KeyValuePair.Create("Odjava", MenuUsers.SignOut),

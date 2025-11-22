@@ -6,38 +6,27 @@ public class ObjectCollectionFlights(List<EntityFlight>? members = null)
     public override string TurnDataTableIntoString()
     {
         var table = new List<List<string>> {};
-        table.Add(["ID", "Naziv", "Datum polaska", "Datum dolaska", "Udaljenost", "Vrijeme putovanja"]);
-        table.AddRange(Members.Select(flight => (List<string>)
+        table.Add(["#", "Kratki ID", "Naziv", "Datum polaska", "Datum dolaska", "Udaljenost", "Vrijeme putovanja"]);
+        table.AddRange(Members.Select((flight, i) => (List<string>)
         [
+            i.ToString(),
             UiAssist.GetShortGuidString(flight.Guid),
             flight.Title,
             flight.Departure.ToString("G"),
             flight.Arrival.ToString("G"),
             flight.Distance.ToString() + " km",
-            GetShortTimeSpan(flight.Arrival - flight.Departure)
+            UiAssist.GetShortTimeSpan(flight.Arrival - flight.Departure)
         ]));
     
         return UiAssist.TurnTableIntoString(table);
     }
-
-    public static string GetShortTimeSpan(TimeSpan timeSpan)
-    {
-        return new TimeSpan(timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds).ToString();
-    }
     
-    public override void Add(EntityFlight flight)
+    public override bool Add(EntityFlight flight)
     {
-        if (Members.Contains(flight)) return;
-
-        if (Storage.Flights.Guid != Guid)
-        {
-            if (Storage.Flights.Contains(flight)) return;
-            
-            Storage.Flights.Add(flight);
-            Storage.Flights.UpdateDateOfModification();
-        }
+        if (Members.Contains(flight)) return false;
         
         Members.Add(flight);
         UpdateDateOfModification();
+        return true;
     }
 }

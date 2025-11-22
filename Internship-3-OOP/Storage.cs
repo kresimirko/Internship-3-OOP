@@ -6,10 +6,10 @@ namespace Internship_3_OOP;
 
 public static class Storage
 {
-    public static ObjectCollectionAircrewGroup AircrewGroup { get; } = [];
-    public static ObjectCollectionAirplanes Airplanes { get; } = [];
-    public static ObjectCollectionFlights Flights { get; } = [];
-    public static ObjectCollectionUsers Users { get; } = [];
+    public static ObjectCollectionAircrewGroup AircrewGroup { get; } = new ObjectCollectionAircrewGroup();
+    public static ObjectCollectionAirplanes Airplanes { get; } = new ObjectCollectionAirplanes();
+    public static ObjectCollectionFlights Flights { get; } = new ObjectCollectionFlights();
+    public static ObjectCollectionUsers Users { get; } = new ObjectCollectionUsers();
     
     public static void CreateDemoData()
     {
@@ -48,6 +48,25 @@ public static class Storage
         Airplanes.Add(new EntityAirplane("Abc", 2010, demoSeats));
         Airplanes.Add(new EntityAirplane("Def", 2011, demoSeats));
         Airplanes.Add(new EntityAirplane("Ghi", 2012, demoSeats));
+
+        var flight1 = new EntityFlight("jedan", DateTime.Now, DateTime.Now, 123);
+        var flight2 = new EntityFlight("dva", DateTime.Now, DateTime.Now, 234);
+        var flight3 = new EntityFlight("tri", DateTime.Now, DateTime.Now, 345);
+        var flight4 = new EntityFlight("četiri", DateTime.Now, DateTime.Now, 321);
+        var flight5 = new EntityFlight("pet", DateTime.Now, DateTime.Now, 432);
+        var flight6 = new EntityFlight("šest", DateTime.Now, DateTime.Now, 543);
+        var flight7 = new EntityFlight("sedam", DateTime.Now, DateTime.Now, 121);
+        var flight8 = new EntityFlight("osam", DateTime.Now, DateTime.Now, 212);
+        var flight9 = new EntityFlight("devet", DateTime.Now, DateTime.Now, 323);
+        Flights.Add(flight1);
+        Flights.Add(flight2);
+        Flights.Add(flight3);
+        Flights.Add(flight4);
+        Flights.Add(flight5);
+        Flights.Add(flight6);
+        Flights.Add(flight7);
+        Flights.Add(flight8);
+        Flights.Add(flight9);
         
         var adminUser = new EntityUser(
             "admin",
@@ -59,7 +78,7 @@ public static class Storage
             UserLevel.Admin
         );
         Users.Add(adminUser);
-        Users.SignIn(adminUser);
+        // Users.SignIn(adminUser);
         
         var user1 = new EntityUser(
             "Iva",
@@ -70,11 +89,11 @@ public static class Storage
             Gender.Female,
             UserLevel.Passenger
         );
-        user1.Flights.Add(new EntityFlight("jedan", DateTime.Now, DateTime.Now, 123));
-        user1.Flights.Add(new EntityFlight("dva", DateTime.Now, DateTime.Now, 456));
-        user1.Flights.Add(new EntityFlight("tri", DateTime.Now, DateTime.Now, 789));
+        user1.Flights.Add(flight1);
+        user1.Flights.Add(flight2);
+        user1.Flights.Add(flight3);
         Users.Add(user1);
-        // Users.SignIn(user1);
+        Users.SignIn(user1);
         
         var user2 = new EntityUser(
             "Mato",
@@ -85,9 +104,9 @@ public static class Storage
             Gender.Male,
             UserLevel.Passenger
         );
-        user2.Flights.Add(new EntityFlight("četiri", DateTime.Now, DateTime.Now, 123));
-        user2.Flights.Add(new EntityFlight("pet", DateTime.Now, DateTime.Now, 456));
-        user2.Flights.Add(new EntityFlight("šest", DateTime.Now, DateTime.Now, 789));
+        user2.Flights.Add(flight4);
+        user2.Flights.Add(flight5);
+        user2.Flights.Add(flight6);
         Users.Add(user2);
         
         var user3 = new EntityUser(
@@ -99,9 +118,9 @@ public static class Storage
             Gender.Female,
             UserLevel.Passenger
         );
-        user3.Flights.Add(new EntityFlight("sedam", DateTime.Now, DateTime.Now, 123));
-        user3.Flights.Add(new EntityFlight("osam", DateTime.Now, DateTime.Now, 456));
-        user3.Flights.Add(new EntityFlight("devet", DateTime.Now, DateTime.Now, 789));
+        user3.Flights.Add(flight7);
+        user3.Flights.Add(flight8);
+        user3.Flights.Add(flight9);
         Users.Add(user3);
     }
 }

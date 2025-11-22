@@ -17,12 +17,13 @@ public abstract class ObjectCollection<T>(List<T>? members = null, string onTabl
         return GetEnumerator();
     }
     
-    public virtual void Add(T member)
+    public virtual bool Add(T member)
     {
-        if (Members.Contains(member)) return;
+        if (Members.Contains(member)) return false;
         
         Members.Add(member);
         UpdateDateOfModification();
+        return true;
     }
 
     public void Remove(T member)
