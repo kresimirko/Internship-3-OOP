@@ -69,8 +69,11 @@ public static class Storage
         Flights.Add(flight3);
         Airplanes.Members[2].Flights.Add(flight3);
         Flights.Add(flight4);
+        Airplanes.Members[0].Flights.Add(flight4);
         Flights.Add(flight5);
+        Airplanes.Members[1].Flights.Add(flight5);
         Flights.Add(flight6);
+        Airplanes.Members[2].Flights.Add(flight6);
         Flights.Add(flight7);
         Flights.Add(flight8);
         Flights.Add(flight9);

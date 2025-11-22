@@ -105,7 +105,7 @@ public static class UiAssist
         Halt();
     }
 
-    private static void BringCursorBackToPrompt(int promptLength, int userInputLength)
+    private static void BringCursorBackToPrompt(int promptLength, int userInputLength, string invalidInputWarning = "Nevažeći unos!")
     {
         for (var i = 0; i < (promptLength + userInputLength) / Console.BufferWidth + 1; i++)
             Console.CursorTop--;
@@ -114,8 +114,7 @@ public static class UiAssist
         Console.Write(new string(' ', userInputLength));
         Console.SetCursorPosition(savedPos.Left, savedPos.Top);
 
-        var invalidInputWarning = "Nevažeći unos!";
-        Console.Write("\a\x1b[31mNevažeći unos!\x1b[0m");
+        Console.Write("\a\x1b[31m{0}\x1b[0m", invalidInputWarning);
         Thread.Sleep(1500);
         Console.Write(new string('\b', invalidInputWarning.Length));
         Console.Write(new string(' ', invalidInputWarning.Length));
@@ -130,7 +129,8 @@ public static class UiAssist
         while (true)
         {
             if (!firstLoop)
-                BringCursorBackToPrompt(prompt.Length, lastEnteredLength);
+                BringCursorBackToPrompt(prompt.Length, lastEnteredLength, 
+                    $"Nevažeći unos ili izvan raspona od {lower + 1} do {higher - 1}!");
             else
                 firstLoop = false;
 
