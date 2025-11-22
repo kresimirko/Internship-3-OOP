@@ -3,7 +3,7 @@ namespace Internship_3_OOP.Entities.ObjectCollections;
 public class ObjectCollectionAircrew(string? name = null, List<EntityCrewMember>? members = null)
     : ObjectCollection<EntityCrewMember>(name, members, "Nema članova posade.")
 {
-    public override string TurnDataTableIntoString()
+    public override string TurnDataTableIntoString(bool usesAltFormat = false)
     {
         var table = new List<List<string>> {};
         table.Add(["Ime", "Prezime", "Pozicija", "Spol", "Datum rođenja"]);

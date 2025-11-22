@@ -27,7 +27,7 @@ public static class MenuFlights
         var searchResultsCollection = new ObjectCollectionFlights(null, searchResults);
         
         Console.WriteLine();
-        searchResultsCollection.PrintDataTable(true);
+        searchResultsCollection.PrintDataTable(true, true);
     }
 
     private static void EditFlight()

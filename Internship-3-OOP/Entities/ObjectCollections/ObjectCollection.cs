@@ -40,9 +40,9 @@ public abstract class ObjectCollection<T>(
         Members.RemoveAll(x => x.Guid == guid);
     }
 
-    public abstract string TurnDataTableIntoString();
+    public abstract string TurnDataTableIntoString(bool usesAltFormat = false);
 
-    public void PrintDataTable(bool shouldHalt = false)
+    public void PrintDataTable(bool shouldHalt = false, bool usesAltFormat = false)
     {
         if (Members.Count == 0)
         {
@@ -51,7 +51,7 @@ public abstract class ObjectCollection<T>(
             return;
         }
         
-        Console.WriteLine(TurnDataTableIntoString());
+        Console.WriteLine(TurnDataTableIntoString(usesAltFormat));
 
         if (!shouldHalt) return;
         Console.WriteLine();
@@ -61,15 +61,15 @@ public abstract class ObjectCollection<T>(
     public static List<T> GetSearchResults(ObjectCollection<T> collection, string subtitle)
     {
         var choice = UiAssist.PromptMenu([
-            "Po kratkom ID-u",
+            "Po ID-u",
             "Po nazivu"
         ], subtitle);
 
         Console.WriteLine();
-        var query = UiAssist.OneLinePrompt<string>("Pretraga: ");
+        var query = UiAssist.OneLinePrompt<string>("Pretraga: ").ToLower();
 
         var searchResults = (from item in collection
-            where (choice == 1 ? UiAssist.GetShortGuidString(item.Guid) : item.Name).Contains(query)
+            where (choice == 1 ? UiAssist.GetShortGuidString(item.Guid) : item.Name).ToLower().Contains(query)
             select item).ToList();
 
         return searchResults;

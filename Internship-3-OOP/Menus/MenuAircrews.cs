@@ -6,11 +6,14 @@ public static class MenuAircrews
     {
         UiAssist.ClearAndPrintAppHeader("Prikaz svih posada");
         
-        Storage.AircrewGroup.PrintDataTable(true);
+        Storage.AircrewGroup.PrintDataTable();
 
         if (!Storage.AircrewGroup.Any()) return;
         foreach (var aircrew in Storage.AircrewGroup)
+        {
+            Console.WriteLine("\n{0}", aircrew.Name);
             aircrew.PrintDataTable(true);
+        }
     }
 
     private static void CreateNewAircrew()

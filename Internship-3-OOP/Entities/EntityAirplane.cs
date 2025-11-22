@@ -4,11 +4,11 @@ public class EntityAirplane(
     string name,
     int manufactureYear,
     Dictionary<FlightCategory, int> flightCategoriesAndSeats,
-    List<Guid>? flights = null) : Entity(name)
+    List<EntityFlight>? flights = null) : Entity(name)
 {
     public int ManufactureYear { get; private set; } = manufactureYear;
     public Dictionary<FlightCategory, int> FlightCategoriesAndSeats { get; } = flightCategoriesAndSeats;
-    public List<Guid> Flights { get; } = flights ?? [];
+    public List<EntityFlight> Flights { get; } = flights ?? [];
     
     public static readonly Dictionary<FlightCategory, string> FlightCategoryCroatianMap = new Dictionary<FlightCategory, string>
     {

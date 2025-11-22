@@ -30,7 +30,7 @@ public static class MenuAirplanes
         var searchResultsCollection = new ObjectCollectionAirplanes(null, searchResults);
         
         Console.WriteLine();
-        searchResultsCollection.PrintDataTable(true);
+        searchResultsCollection.PrintDataTable(true, true);
     }
 
     private static void DeleteAirplane()

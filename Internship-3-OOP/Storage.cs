@@ -13,7 +13,7 @@ public static class Storage
     
     public static void CreateDemoData()
     {
-        const string airport = "Glavna Luka";
+        const string airport = "Glavna luka";
         
         AircrewGroup.Add(new ObjectCollectionAircrew("Glavna", [
             new EntityCrewMember(
@@ -63,8 +63,11 @@ public static class Storage
         var flight8 = new EntityFlight("osam", DateTime.Now, airport, DateTime.Now.Add(demoTimespanArrival), "b",212);
         var flight9 = new EntityFlight("devet", DateTime.Now.Add(demoTimespanOffset), airport, DateTime.Now.Add(demoTimespanOffset).Add(demoTimespanArrival), "c",323);
         Flights.Add(flight1);
+        Airplanes.Members[0].Flights.Add(flight1);
         Flights.Add(flight2);
+        Airplanes.Members[1].Flights.Add(flight2);
         Flights.Add(flight3);
+        Airplanes.Members[2].Flights.Add(flight3);
         Flights.Add(flight4);
         Flights.Add(flight5);
         Flights.Add(flight6);
@@ -82,7 +85,7 @@ public static class Storage
             UserLevel.Admin
         );
         Users.Add(adminUser);
-        // Users.SignIn(adminUser);
+        Users.SignIn(adminUser);
         
         var user1 = new EntityUser(
             "Iva",
@@ -97,7 +100,6 @@ public static class Storage
         user1.Flights.Add(flight2);
         user1.Flights.Add(flight3);
         Users.Add(user1);
-        Users.SignIn(user1);
         
         var user2 = new EntityUser(
             "Mato",

@@ -62,7 +62,7 @@ public class ObjectCollectionUsers(string? name = null, List<EntityUser>? member
         ActiveUser = null;
     }
     
-    public override string TurnDataTableIntoString()
+    public override string TurnDataTableIntoString(bool usesAltFormat = false)
     {
         var table = new List<List<string>> {};
         table.Add(["Ime", "Prezime", "Datum rođenja", "Email", "Spol"]);
