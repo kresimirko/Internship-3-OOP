@@ -22,7 +22,10 @@ public class ObjectCollectionFlights(string? name = null, List<EntityFlight>? me
         }
         else
         {
-            table.Add(["#", "ID", "Naziv", "Datum polaska", "Mjesto polaska", "Datum dolaska", "Mjesto dolaska", "Udaljenost", "Vrijeme putovanja"]);
+            table.Add([
+                "#", "ID", "Naziv", "Datum polaska", "Mjesto polaska", "Datum dolaska", "Mjesto dolaska", "Udaljenost",
+                "Vrijeme putovanja", "Posada", "Avion"
+            ]);
             table.AddRange(Members.Select((flight, i) => (List<string>)
             [
                 i.ToString(),
@@ -33,7 +36,9 @@ public class ObjectCollectionFlights(string? name = null, List<EntityFlight>? me
                 flight.Arrival.ToString("G"),
                 flight.ArrivalLocation,
                 flight.Distance.ToString() + " km",
-                UiAssist.GetShortTimeSpan(flight.Arrival - flight.Departure)
+                UiAssist.GetShortTimeSpan(flight.Arrival - flight.Departure),
+                flight.Aircrew.Name,
+                flight.Airplane.Name
             ]));
         }
     

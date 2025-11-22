@@ -54,11 +54,13 @@ public static class MenuAirplanes
             Console.ReadKey();
         }
         
-        if (!UiAssist.PromptYesNoChoice("Dodavanje aviona uspješno.", "Dodavanje aviona otkazano.",
+        if (!UiAssist.PromptYesNoChoice("Dodavanje aviona...", "Dodavanje aviona otkazano.",
                 $"Jeste li sigurni da želite dodati avion \"{name}\"?"))
             return;
 
         Storage.Airplanes.Add(new EntityAirplane(name, manufacturingYear, categoriesWithSeats));
+
+        Console.WriteLine("Dodavanje aviona uspješno.\n");
         
         UiAssist.Halt();
     }
@@ -102,11 +104,12 @@ public static class MenuAirplanes
                     return;
                 }
                 
-                if (!UiAssist.PromptYesNoChoice("Brisanje aviona uspješno.", "Brisanje aviona otkazano.",
+                if (!UiAssist.PromptYesNoChoice("Brisanje aviona...", "Brisanje aviona otkazano.",
                         $"Jeste li sigurni da želite izbrisati avion \"{selected[0].Name}\"?"))
                     return;
 
                 Storage.Airplanes.Remove(selected[0]);
+                Console.WriteLine("Brisanje aviona uspješno.\n");
                 break;
             case 0:
                 Console.WriteLine("Molimo vas upišite puni naziv. Evo svih aviona:");
@@ -123,10 +126,11 @@ public static class MenuAirplanes
                     return;
                 }
                 
-                if (!UiAssist.PromptYesNoChoice("Brisanje aviona uspješno.", "Brisanje aviona otkazano.",
+                if (!UiAssist.PromptYesNoChoice("Brisanje aviona...", "Brisanje aviona otkazano.",
                         $"Jeste li sigurni da želite izbrisati avion \"{selected[0].Name}\"?"))
                     return;
 
+                Console.WriteLine("Brisanje aviona uspješno.\n");
                 Storage.Airplanes.Remove(selected[0]);
                 break;
         }

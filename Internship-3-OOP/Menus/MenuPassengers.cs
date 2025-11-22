@@ -57,11 +57,14 @@ public static class MenuPassengers
         var choice = UiAssist.OneLinePromptIntInRange(-1, temporaryFlightCollection.Count(),
             "Odaberite broj leta koji želite rezervirati: ");
 
-        if (!UiAssist.PromptYesNoChoice("Rezerviranje leta uspješno.", "Rezerviranje leta otkazano.",
+        if (!UiAssist.PromptYesNoChoice("Rezerviranje leta...", "Rezerviranje leta otkazano.",
                 $"Jeste li sigurni da želite dodati let \"{temporaryFlightCollection.Members[choice].Name}\" (odabir {choice})?"))
             return;
 
         Storage.Users.ActiveUser.Flights.Add(temporaryFlightCollection.Members[choice]);
+
+        Console.WriteLine("Rezerviranje leta uspješno.\n");
+        UiAssist.Halt();
         
         UiAssist.ClearAndPrintAppHeader("Odabir leta");
         Console.WriteLine("Vaši trenutačni letovi:\n");
