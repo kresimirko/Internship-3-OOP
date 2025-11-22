@@ -11,6 +11,20 @@ public static class Storage
     public static ObjectCollectionAirplanes Airplanes { get; } = new ObjectCollectionAirplanes();
     public static ObjectCollectionFlights Flights { get; } = new ObjectCollectionFlights();
     public static ObjectCollectionUsers Users { get; } = new ObjectCollectionUsers();
+
+    private static string[] StockFirstNames { get; } = ["Ivan", "Stipe", "Mate", "Jozo", "Šimun", "Luka", "Kate", "Andrijana", "Lucija", "Antonia", "Lukrecija", "Jelena"];
+    private static string[] StockLastNames { get; } = ["Ivić", "Babić", "Šimić", "Žarković", "Slapničar", "Geić"];
+    private static Random Random { get; } = new Random();
+    
+    private static string GetRandomFirstName()
+    {
+        return StockFirstNames[Random.Next(0, StockFirstNames.Length)];
+    }
+    
+    private static string GetRandomLastName()
+    {
+        return StockLastNames[Random.Next(0, StockLastNames.Length)];
+    }
     
     public static void CreateDemoData()
     {
@@ -18,74 +32,74 @@ public static class Storage
         
         AllCrewMembers.Members.AddRange([
             new EntityCrewMember(
-                "asdf",
-                "ghjk",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2000,1,2),
                 Gender.Male,
                 AircrewRole.Pilot),
             new EntityCrewMember(
-                "qwer",
-                "tzui",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2001,2,4),
                 Gender.Female,
                 AircrewRole.Copilot),
             new EntityCrewMember(
-                "yxcv",
-                "bnml",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(1999,4,8),
                 Gender.Male,
                 AircrewRole.FlightAttendant),
             new EntityCrewMember(
-                "abcde",
-                "fghij",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2002,10,8),
                 Gender.Female,
                 AircrewRole.FlightAttendant),
             new EntityCrewMember(
-                "abcd",
-                "efgh",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2000,6,7),
                 Gender.Male,
                 AircrewRole.Pilot),
             new EntityCrewMember(
-                "ijkl",
-                "mnop",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2001,7,6),
                 Gender.Female,
                 AircrewRole.Copilot),
             new EntityCrewMember(
-                "qrst",
-                "uvwx",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(1999,4,2),
                 Gender.Male,
                 AircrewRole.FlightAttendant),
             new EntityCrewMember(
-                "yzab",
-                "cdef",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2002,12,16),
                 Gender.Female,
                 AircrewRole.FlightAttendant),
             new EntityCrewMember(
-                "Abcdef",
-                "Ghijkl",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2000,6,7),
                 Gender.Male,
                 AircrewRole.Pilot),
             new EntityCrewMember(
-                "Mnopqr",
-                "stuvwx",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2001,7,6),
                 Gender.Female,
                 AircrewRole.Copilot),
             new EntityCrewMember(
-                "Yzabcd",
-                "Efghij",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2002,4,2),
                 Gender.Male,
                 AircrewRole.FlightAttendant),
             new EntityCrewMember(
-                "Klmnop",
-                "Qrstuv",
+                GetRandomFirstName(),
+                GetRandomLastName(),
                 new DateOnly(2003,12,16),
                 Gender.Female,
                 AircrewRole.FlightAttendant)
@@ -108,84 +122,84 @@ public static class Storage
             { FlightCategory.Business , 40},
             { FlightCategory.Vip, 8 }
         };
-        Airplanes.Add(new EntityAirplane("Abc", 2010, demoSeats));
-        Airplanes.Add(new EntityAirplane("Def", 2011, demoSeats));
-        Airplanes.Add(new EntityAirplane("Ghi", 2012, demoSeats));
+        Airplanes.Add(new EntityAirplane("A-123", 2010, demoSeats));
+        Airplanes.Add(new EntityAirplane("B-345", 2011, demoSeats));
+        Airplanes.Add(new EntityAirplane("C-567", 2012, demoSeats));
 
         var demoTimespanArrival = new TimeSpan(0, 12, 23);
         var demoTimespanOffset = new TimeSpan(2, 0, 0, 0);
-        var flight1 = new EntityFlight("jedan",
+        var flight1 = new EntityFlight("Prvi let",
             DateTime.Now,
             airport,
             DateTime.Now.Add(demoTimespanArrival),
-            "a",
+            "Prva lokacija",
             123,
             Airplanes.Members[0],
             AircrewGroup.Members[0]);
-        var flight2 = new EntityFlight("dva",
+        var flight2 = new EntityFlight("Drugi let",
             DateTime.Now,
             airport,
             DateTime.Now.Add(demoTimespanArrival),
-            "b",
+            "Druga lokacija",
             234,
             Airplanes.Members[1],
             AircrewGroup.Members[0]);
-        var flight3 = new EntityFlight("tri",
+        var flight3 = new EntityFlight("Treći let",
             DateTime.Now.Add(demoTimespanOffset),
             airport,
             DateTime.Now.Add(demoTimespanOffset)
                 .Add(demoTimespanArrival),
-            "c",
+            "Treća lokacija",
             345,
             Airplanes.Members[2],
             AircrewGroup.Members[0]);
-        var flight4 = new EntityFlight("četiri",
+        var flight4 = new EntityFlight("Četvrti let",
             DateTime.Now,
             airport,
             DateTime.Now.Add(demoTimespanArrival),
-            "a",
+            "Treća lokacija",
             321,
             Airplanes.Members[0],
             AircrewGroup.Members[0]);
-        var flight5 = new EntityFlight("pet",
+        var flight5 = new EntityFlight("Peti let",
             DateTime.Now,
             airport,
             DateTime.Now.Add(demoTimespanArrival),
-            "b",
+            "Druga lokacija",
             432,
             Airplanes.Members[1],
             AircrewGroup.Members[0]);
-        var flight6 = new EntityFlight("šest",
+        var flight6 = new EntityFlight("Šesti let",
             DateTime.Now.Add(demoTimespanOffset),
             airport,
             DateTime.Now.Add(demoTimespanOffset)
                 .Add(demoTimespanArrival),
-            "c",
+            "Prva lokacija",
             543,
             Airplanes.Members[2],
             AircrewGroup.Members[0]);
-        var flight7 = new EntityFlight("sedam",
+        var flight7 = new EntityFlight("Sedmi let",
             DateTime.Now,
             airport,
             DateTime.Now.Add(demoTimespanArrival),
-            "a",
+            "Treća lokacija",
             121,
             Airplanes.Members[0],
             AircrewGroup.Members[0]);
-        var flight8 = new EntityFlight("osam",
+        var flight8 = new EntityFlight("Osmi let",
             DateTime.Now,
             airport,
             DateTime.Now.Add(demoTimespanArrival),
-            "b",
+            "Četvrta lokacija",
             212,
             Airplanes.Members[1],
             AircrewGroup.Members[0]);
-        var flight9 = new EntityFlight("devet",
+        var flight9 = new EntityFlight("Deveti let",
             DateTime.Now.Add(demoTimespanOffset),
             airport,
             DateTime.Now.Add(demoTimespanOffset)
                 .Add(demoTimespanArrival),
-            "c",
+            "Četvrta lokacija",
             323,
             Airplanes.Members[2],
             AircrewGroup.Members[0]);
